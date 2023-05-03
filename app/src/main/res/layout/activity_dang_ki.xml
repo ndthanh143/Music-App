@@ -1,210 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgr_home"
-    android:padding="16dp"
-    android:orientation="vertical"
-    tools:context=".Activity.DangKi">
+    android:background="@drawable/images"
+    tools:context=".Activity.MainActivity">
 
-
-  <ImageView
-      android:id="@+id/imageClose"
-      android:layout_width="35dp"
-      android:layout_height="35dp"
-      android:layout_gravity="end"
-      android:layout_marginTop="12dp"
-      android:layout_marginEnd="12dp"
-      android:background="@drawable/clear"
-      tools:srcCompat="@drawable/clear" />
-
-  <TextView
-      android:id="@+id/textView8"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:gravity="center_horizontal"
-      android:layout_marginTop="8dp"
-      android:fontFamily="sans-serif"
-      android:text="Đăng ký"
-      android:textColor="@color/design_default_color_background"
-      android:textSize="32sp"/>
-
-  <TextView
-      android:id="@+id/textView9"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:fontFamily="sans-serif"
-      android:text="Tài khoản"
-      android:textColor="@color/design_default_color_background"
-      android:textSize="24sp"/>
-
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/edttaikhoan"
-      android:layout_width="match_parent"
-      android:layout_height="65dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="16dp"
-      android:background="@drawable/edt_all"
-      android:fontFamily="sans-serif"
-      android:inputType="textPersonName"
-      android:textColor="@color/design_default_color_background"
-      android:textColorHint="#A6A6A6"
-      app:counterEnabled="true"
-      app:counterMaxLength="25"
-      app:endIconMode="clear_text"
-      app:endIconTint="#FFFFFF">
-
-    <com.google.android.material.textfield.TextInputEditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:hint="Nhập tài khoản"
-        android:textColor="#FFFFFF" />
-  </com.google.android.material.textfield.TextInputLayout>
+        android:id="@+id/signuptitle"
+        android:text="Sign up"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_margin="20dp"/>
 
-  <TextView
-      android:id="@+id/textView10"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:fontFamily="sans-serif"
-      android:text="Mật khẩu"
-      android:textColor="@color/design_default_color_background"
-      android:textSize="24sp" />
-
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/edtmatkhau"
-      android:layout_width="match_parent"
-      android:layout_height="65dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="16dp"
-      android:background="@drawable/edt_all"
-      android:fontFamily="sans-serif"
-      android:inputType="textPersonName"
-      android:textColor="@color/design_default_color_background"
-      android:textColorHint="#A6A6A6"
-      android:textSize="18sp"
-      app:counterEnabled="true"
-      app:counterMaxLength="36"
-      app:passwordToggleEnabled="true"
-      app:passwordToggleTint="#FFFFFF">
-
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập mật khẩu"
-        android:layout_marginStart="15dp"
+        android:id="@+id/username"
+        android:layout_below="@id/signuptitle"
+        android:background="#30ffffff"
+        android:hint="Username"
+        android:textColorHint="#FF00FF"
+        android:textColor="#FF00FF"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawablePadding="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_below="@id/username"
+        android:background="#30ffffff"
+        android:hint="Email"
+        android:textColorHint="#FF00FF"
+        android:textColor="#FF00FF"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="20dp"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/baseline_local_phone_24"
+        android:drawablePadding="20dp"
+        android:hint="Phone"
+        android:padding="20dp"
+        android:textColor="#FF00FF"
+        android:textColorHint="#FF00FF"
+        android:textSize="18sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:layout_below="@id/phone"
+        android:background="#30ffffff"
+        android:hint="Password"
+        android:textColorHint="#FF00FF"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:drawablePadding="20dp"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/repassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_margin="10dp"
+        android:layout_marginTop="101dp"
+        android:background="#30ffffff"
+        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:drawablePadding="20dp"
+        android:hint="Re-Password"
         android:inputType="textPassword"
-        android:textColor="#FFFFFF" />
-  </com.google.android.material.textfield.TextInputLayout>
+        android:padding="20dp"
+        android:textColor="#FF00FF"
+        android:textColorHint="#FF00FF" />
 
-  <TextView
-      android:id="@+id/textView3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:fontFamily="sans-serif"
-      android:text="Email"
-      android:textColor="@color/design_default_color_background"
-      android:textSize="24sp"/>
+    <Button
+        android:id="@+id/signupbtn"
+        android:layout_width="315dp"
+        android:layout_height="54dp"
+        android:layout_above="@+id/socialicons"
+        android:layout_below="@id/repassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="46dp"
+        android:background="@drawable/edt_all"
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:fontFamily="serif"
+        android:text="REGISTER"
+        android:textSize="24sp" />
 
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/emaildangky"
-      android:layout_width="match_parent"
-      android:layout_height="65dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="16dp"
-      android:background="@drawable/edt_all"
-      android:fontFamily="sans-serif"
-      android:inputType="textPersonName"
-      android:textColor="@color/design_default_color_background"
-      android:textColorHint="#A6A6A6"
-      app:counterEnabled="true"
-      app:counterMaxLength="36"
-      app:endIconMode="clear_text"
-      app:endIconTint="#FFFFFF">
-
-    <com.google.android.material.textfield.TextInputEditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:hint="Nhập email"
-        android:textColor="#FFFFFF" />
+        android:id="@+id/socialicons"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
 
-  </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/google"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/fb"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/twitter"/>
+    </LinearLayout>
 
-  <TextView
-      android:id="@+id/textView4"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:fontFamily="sans-serif"
-      android:text="Mã xác nhận"
-      android:textColor="@color/design_default_color_background"
-      android:textSize="24sp"/>
 
-  <LinearLayout
-      android:layout_marginTop="8dp"
-      android:orientation="horizontal"
-      android:weightSum="4"
-      android:layout_width="match_parent"
-      android:layout_height="65dp">
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edtmaxacnhandangky"
-        android:layout_weight="3"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/edt_all"
-        android:fontFamily="sans-serif"
-        android:inputType="number"
-        android:gravity="center_vertical"
-        android:textColor="@color/design_default_color_background"
-        android:textColorHint="#A6A6A6"
-        app:counterEnabled="true"
-        app:counterMaxLength="5"
-        app:endIconMode="clear_text"
-        app:endIconTint="#FFFFFF"/>
 
-    <Button
-        android:id="@+id/btngetmadangky"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/edt_all"
-        android:text="Lấy mã"
-        android:textColor="#FFFFFF"/>
-
-  </LinearLayout>
-  <LinearLayout
-      android:gravity="center"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btndangKy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_bgr_button"
-        android:fontFamily="sans-serif"
-        android:text="Đăng ký"
-        android:textSize="18sp"/>
-  </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
