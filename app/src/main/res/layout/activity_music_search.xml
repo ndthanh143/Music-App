@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0C2570"
+    tools:context=".Activity.MusicSearch">
+
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="Khám Phá"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#000000"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:background="@drawable/ig" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:layout_margin="10dp">
+
+
+            <EditText
+                android:id="@+id/seachView"
+                android:layout_width="302dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/search_bgr"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/cardview_dark_background"
+                android:hint="Search"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/white" />
+
+
+        </FrameLayout>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/baseline_notifications_24" />
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/songsList"
+        android:layout_width="match_parent"
+        android:layout_height="636dp"
+        android:layout_alignParentBottom="true"
+        android:background="#0C2570"
+        android:choiceMode="multipleChoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</RelativeLayout>

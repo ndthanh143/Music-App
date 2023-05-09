@@ -15,7 +15,16 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.PlayMusicActivity"
+            android:name=".Upload_music"
+            android:exported="false" />
+        <activity
+            android:name=".MusicSearch"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DangNhap"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
