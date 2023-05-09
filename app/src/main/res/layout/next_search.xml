@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0C2570"
+    tools:context=".Activity.MusicSearch">
+
+    <LinearLayout
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:background="#0587B3"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/baseline_keyboard_backspace_24" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="10">
+
+
+            <EditText
+                android:id="@+id/seachView"
+                android:layout_width="346dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/search_bgr"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/cardview_dark_background"
+                android:hint="Search"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/white" />
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="660dp"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="Đề xuất cho bạn"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="338dp"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/node_bgr"
+                android:text="Podcast"
+                tools:layout_editor_absoluteX="131dp"
+                tools:layout_editor_absoluteY="0dp"/>
+
+            <Button
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="#ZingChart"
+                android:background="@drawable/node_bgr"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <Button
+                android:layout_width="171dp"
+                android:layout_height="46dp"
+                android:text="zing choice"
+                android:background="@drawable/node_bgr"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="59dp" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:text="workout"
+                android:background="@drawable/node_bgr"
+                tools:layout_editor_absoluteX="254dp"
+                tools:layout_editor_absoluteY="3dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
