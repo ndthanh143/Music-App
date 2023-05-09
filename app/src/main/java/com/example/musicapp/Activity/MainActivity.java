@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mListMusicTypes = new ArrayList<>();
         CallApiMusicType();
 //        Test
+
     }
 
     private void CallApiMusicType() {
