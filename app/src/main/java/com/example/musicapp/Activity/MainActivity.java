@@ -33,12 +33,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b005946f6974862cdbba69243ac96bc7ff6e63a7
         anhXa();
         mListMusicTypes = new ArrayList<>();
         CallApiMusicType();
 //        Test
+<<<<<<< HEAD
 =======
 >>>>>>> 1a7536adff3f8192ee18a31deb794d81c590c673
+=======
+
+>>>>>>> b005946f6974862cdbba69243ac96bc7ff6e63a7
     }
 
     private void CallApiMusicType() {
