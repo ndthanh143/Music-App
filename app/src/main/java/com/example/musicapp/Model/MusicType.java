@@ -3,7 +3,7 @@ package com.example.musicapp.Model;
 public class MusicType {
     private String id;
     private String name;
-    private String thumbnail;
+    private String thumbnailUrl;
 
     public String getId() {
         return id;
@@ -21,11 +21,11 @@ public class MusicType {
         this.name = name;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getThumbnaiUrll() {
+        return thumbnailUrl;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }
