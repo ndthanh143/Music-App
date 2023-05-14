@@ -14,7 +14,6 @@ public class Song {
     private String lyrics;
 
     private MusicType type;
-
     public Song(String id, String name, String artist, String songUrl, String imageSongUrl, String lyrics, MusicType type) {
         this.id = id;
         this.name = name;
@@ -24,7 +23,6 @@ public class Song {
         this.lyrics = lyrics;
         this.type = type;
     }
-
     public String getId() {
         return id;
     }
