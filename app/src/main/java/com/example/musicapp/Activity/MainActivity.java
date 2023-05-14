@@ -31,12 +31,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         anhXa();
         mListMusicTypes = new ArrayList<>();
         CallApiMusicType();
 //        Test
-
     }
 
     private void CallApiMusicType() {
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<MusicType>> call, Response<List<MusicType>> response) {
                 if(response.isSuccessful()) {
                     mListMusicTypes = response.body();
-                    System.out.println(mListMusicTypes.get(0).getThumbnail());
                     musicTypeAdapter = new MusicTypeAdapter(MainActivity.this, mListMusicTypes);
                     rcMusicType.setHasFixedSize(true);
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
