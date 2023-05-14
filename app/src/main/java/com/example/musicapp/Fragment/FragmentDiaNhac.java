@@ -11,13 +11,9 @@ import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.musicapp.R;
-
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,7 +24,7 @@ public class FragmentDiaNhac extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_dia_nhac_activity, container,false);
+        view = inflater.inflate(R.layout.fragment_dia_nhac, container,false);
         circleImageView = view.findViewById(R.id.imageviewcircle);
         objectAnimator = objectAnimator.ofFloat(circleImageView, "rotation",0f, 360f);
         objectAnimator.setDuration(10000);
@@ -36,6 +32,8 @@ public class FragmentDiaNhac extends Fragment {
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         objectAnimator.setInterpolator(new LinearInterpolator());
         return view;
-
+    }
+    public void Playnhac(String hinhanh) {
+        Picasso.with(getContext()).load(hinhanh).into(circleImageView);
     }
 }

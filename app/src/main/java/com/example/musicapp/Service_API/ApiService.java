@@ -33,9 +33,16 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
+    public static DataService getService(){
+        return RetrofitClient.getClient(BASE_URL).create(DataService.class);
+    }
 
     @GET("music-type/all")
     Call<List<MusicType>> getListMusicTypes();
+    @GET("song/all")
+    Call<List<Song>> getListMusicSong();
+    @GET("song/random")
+    Call<List<Song>> getListRandomSong();
 
     @GET("song/all")
     Call<List<Song>> getAllSong();
