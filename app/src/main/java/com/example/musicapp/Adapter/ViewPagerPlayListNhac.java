@@ -10,52 +10,69 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.musicapp.Fragment.FragmentDiaNhac;
 import com.example.musicapp.Fragment.FragmentListSongPlay;
 import com.example.musicapp.Fragment.FragmentLyricsNhac;
-import com.example.musicapp.Fragment.Fragment_Banner;
+//import com.example.musicapp.Fragment.Fragment_Banner;
 
 import java.util.ArrayList;
 
-public class ViewPagerPlayListNhac extends FragmentPagerAdapter {
+    public class ViewPagerPlayListNhac extends FragmentPagerAdapter {
 
-//    public ViewPagerPlayListNhac(@NonNull FragmentManager fm, int behavior) {
-//        super(fm, behavior);
-//    }
-    public final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    public ViewPagerPlayListNhac(FragmentManager fm) {
-        super(fm);
-    }
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new FragmentListSongPlay();
-            case 1:
-                return new FragmentDiaNhac();
-            case 2:
-                return new FragmentLyricsNhac();
-            default:  return new FragmentDiaNhac();
+    //    public ViewPagerPlayListNhac(@NonNull FragmentManager fm, int behavior) {
+    //        super(fm, behavior);
+    //    }
+        public final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private static final int NUM_PAGES = 3;
+        public static FragmentListSongPlay mFragment1;
+        public static FragmentDiaNhac mFragment2;
+        public static FragmentLyricsNhac mFragment3;
+        public ViewPagerPlayListNhac(@NonNull FragmentManager fm) {
+            super(fm);
+            mFragment1 = new FragmentListSongPlay();
+            mFragment2 = new FragmentDiaNhac();
+            mFragment3 = new FragmentLyricsNhac();
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    return mFragment1;
+                case 1:
+                    return mFragment2;
+                    case 2:return mFragment3;
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String title="";
+            if (position==0)
+                title = "Thông tin bài hát";
+            if (position==1)
+                title = "Bài hát";
+            if (position==2)
+                title = "Lời bài hát";
+            return title;
+        }
+        public FragmentListSongPlay getFragment1() {
+            return mFragment1;
+        }
+        public FragmentDiaNhac getFragment2() {
+            return mFragment2;
+        }
+        public FragmentLyricsNhac getFragment3() {
+            return mFragment3;
+        }
+        public void AddFragment(Fragment fragment){
+            fragmentArrayList.add(fragment);
         }
     }
-
-    @Override
-    public int getCount() {
-        return fragmentArrayList.size();
-    }
-
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        String title="";
-        if (position==0)
-            title = "Thông tin bài hát";
-        if (position==1)
-            title = "Bài hát";
-        if (position==2)
-            title = "Lời bài hát";
-        return title;
-    }
-    public void AddFragment(Fragment fragment){
-        fragmentArrayList.add(fragment);
-    }
-}

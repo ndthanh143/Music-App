@@ -1,6 +1,7 @@
 package com.example.musicapp.Service_API;
 
 import com.example.musicapp.DTO.PlaylistDTO;
+import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.Model.Song;
@@ -21,7 +22,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    String BASE_URL = "http://192.168.1.10:8080/api/";
+    String BASE_URL = "http://192.168.1.250:8081/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -33,21 +34,21 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
-    public static DataService getService(){
-        return RetrofitClient.getClient(BASE_URL).create(DataService.class);
-    }
 
     @GET("music-type/all")
     Call<List<MusicType>> getListMusicTypes();
     @GET("song/all")
-    Call<List<Song>> getListMusicSong();
+    Call<List<SongDTO>> getListMusicSong();
     @GET("song/random")
     Call<List<Song>> getListRandomSong();
 
     @GET("song/all")
     Call<List<Song>> getAllSong();
+    @GET("song/{id}")
+    Call<Song> getSongId(@Path("id") String songId);
 
-//    Playlist
+
+    //    Playlist
     @GET("playlist/{id}")
     Call<Playlist> getPlaylist(@Path("id") String playlistId);
     @POST("playlist")

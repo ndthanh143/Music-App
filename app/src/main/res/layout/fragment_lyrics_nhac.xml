@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentLyric"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.FragmentLyricsNhac">
@@ -12,6 +13,7 @@
         android:textSize="25sp"
         android:layout_margin="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/fragment_lyric_song" />
+        android:text="@string/fragment_lyric_song"
+        android:id="@+id/txtLyric"/>
 
 </FrameLayout>
