@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.musicapp.Activity.PlayMusicActivity;
 import com.example.musicapp.Adapter.PlayNhacAdapter;
+import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 
@@ -27,7 +28,7 @@ public class FragmentListSongPlay extends Fragment {
     View view;
     RecyclerView recyclerViewplaynhac;
     PlayNhacAdapter playNhacAdapter;
-    ArrayList<Song> songList;
+    ArrayList<SongDTO> songList;
     @Override
     @Nullable
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,14 +38,14 @@ public class FragmentListSongPlay extends Fragment {
         // Inflate the layout for this fragment
         // Convert from Parcelable ArrayList to Song ArrayList
         songList = new ArrayList<>();
-        for (Song p : PlayMusicActivity.mangbaihat) {
-            songList.add((Song) p);
+        for (SongDTO p : PlayMusicActivity.mangbaihat) {
+            songList.add((SongDTO) p);
         }
-        if (songList.size() > 0) {
-            playNhacAdapter = new PlayNhacAdapter(getActivity(), songList);
-            recyclerViewplaynhac.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerViewplaynhac.setAdapter(playNhacAdapter);
-        }
+//        if (songList.size() > 0) {
+//            playNhacAdapter = new PlayNhacAdapter(getActivity(), songList);
+//            recyclerViewplaynhac.setLayoutManager(new LinearLayoutManager(getActivity()));
+//            recyclerViewplaynhac.setAdapter(playNhacAdapter);
+//        }
         return view;
     }
 }

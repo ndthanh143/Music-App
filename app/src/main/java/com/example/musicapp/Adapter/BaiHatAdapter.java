@@ -1,16 +1,20 @@
 package com.example.musicapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.musicapp.Activity.PlayMusicActivity;
+import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 
@@ -18,9 +22,9 @@ import java.util.List;
 
 public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHolder> {
     Context context;
-    List<Song> array;
+    List<SongDTO> array;
 
-    public BaiHatAdapter(Context context, List<Song> array) {
+    public BaiHatAdapter(Context context, List<SongDTO> array) {
         this.context = context;
         this.array = array;
     }
@@ -47,12 +51,21 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
     }
     @Override
     public void onBindViewHolder(@NonNull BaiHatAdapter.MyViewHolder holder, int position) {
-        Song song =array.get(position);
+        SongDTO song =array.get(position);
         holder.tenbaihat.setText(song.getName());
         holder.tencasi.setText(song.getArtist());
         Glide.with(context)
                 .load(song.getImageSongUrl())
                 .into(holder.images);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PlayMusicActivity.class);
+                intent.putExtra("id", song.getId());
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

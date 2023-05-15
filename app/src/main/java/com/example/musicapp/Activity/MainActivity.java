@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.musicapp.Adapter.BaiHatAdapter;
 import com.example.musicapp.Adapter.MusicTypeAdapter;
+import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private List<MusicType> mListMusicTypes;
-    private List<Song> mListSong=new ArrayList<>();
+    private List<SongDTO> mListSong=new ArrayList<>();
 
     private RecyclerView rcMusicType,rcSong;
 
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        anhXa();
         mListMusicTypes = new ArrayList<>();
         CallApiMusicType();
         RecyclerViewListSong();
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
         rcSong = findViewById(R.id.rc_recent_song);
         rcSong.setLayoutManager(linearLayoutManager);
         //Get API
-        ApiService.apiService.getListMusicSong().enqueue(new Callback<List<Song>>() {
+        ApiService.apiService.getListMusicSong().enqueue(new Callback<List<SongDTO>>() {
             @Override
-            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+            public void onResponse(Call<List<SongDTO>> call, Response<List<SongDTO>> response) {
                 if(response.isSuccessful()){
                     mListSong=response.body();
                     adapter2 = new BaiHatAdapter(MainActivity.this, mListSong);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Song>> call, Throwable t) {
+            public void onFailure(Call<List<SongDTO>> call, Throwable t) {
                 Log.d("logg",t.getMessage());
                 System.out.println("No Database");
             }
@@ -77,18 +77,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void CallApiMusicType() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rcMusicType = findViewById(R.id.rc_music_type);
+        rcMusicType.setLayoutManager(linearLayoutManager);
         ApiService.apiService.getListMusicTypes().enqueue(new Callback<List<MusicType>>() {
             @Override
             public void onResponse(Call<List<MusicType>> call, Response<List<MusicType>> response) {
                 if(response.isSuccessful()) {
                     mListMusicTypes = response.body();
-                    System.out.println(mListMusicTypes.get(1).getThumbnaiUrll());
-                    musicTypeAdapter = new MusicTypeAdapter(MainActivity.this, mListMusicTypes);
-                    rcMusicType.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
-                    rcMusicType.setLayoutManager(layoutManager);
-                    rcMusicType.setAdapter(musicTypeAdapter);
-                    musicTypeAdapter.notifyDataSetChanged();
+                    adapter = new MusicTypeAdapter(MainActivity.this, mListMusicTypes);
+                    rcMusicType.setAdapter(adapter);
+//                    System.out.println(mListMusicTypes.get(1).getThumbnaiUrll());
+//                    musicTypeAdapter = new MusicTypeAdapter(MainActivity.this, mListMusicTypes);
+//                    rcMusicType.setHasFixedSize(true);
+//                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+//                    rcMusicType.setLayoutManager(layoutManager);
+//                    rcMusicType.setAdapter(musicTypeAdapter);
+//                    musicTypeAdapter.notifyDataSetChanged();
                 } else {
                     int statusCode = response.code();
                 }
@@ -102,7 +107,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void anhXa() {
-        rcMusicType = (RecyclerView) findViewById(R.id.rc_music_type);
-    }
 }

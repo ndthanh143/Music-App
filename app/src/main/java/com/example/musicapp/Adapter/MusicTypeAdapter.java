@@ -41,10 +41,13 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView images;
+        public TextView tentheloai;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            images = (ImageView) itemView.findViewById(R.id.iv_music_type);
+            images = (ImageView) itemView.findViewById(R.id.image_theloai);
+            tentheloai = (TextView) itemView.findViewById(R.id.tvNameTheloai);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -55,6 +58,7 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MusicTypeAdapter.MyViewHolder holder, int position) {
         MusicType musicType =array.get(position);
+        holder.tentheloai.setText(musicType.getName());
         Glide.with(context)
                 .load(musicType.getThumbnaiUrll())
                 .into(holder.images);

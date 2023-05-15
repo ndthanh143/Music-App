@@ -36,7 +36,7 @@ public class PlayNhacAdapter extends RecyclerView.Adapter<PlayNhacAdapter.ViewHo
         Song song = mangbaihat.get(position);
         holder.txtcasi.setText(song.getArtist());
 //        holder.txtindex.setText(position+1+"");
-        holder.txtcasi.setText(song.getName());
+        holder.txttenbaihat.setText(song.getName());
 
     }
 
