@@ -275,9 +275,10 @@ public class PlayMusicActivity extends AppCompatActivity {
         sktime.setMax(mediaPlayer.getDuration());
     }
     private  void khoiTaoMedia(String url){
-//        mediaPlayer = MediaPlayer.create(this, Uri.parse(mangbaihat.get(position).getImageSongUrl()));
-        if (mediaPlayer == null) {
+//        if (mediaPlayer == null)
+        {
             mediaPlayer = new MediaPlayer();
+            mediaPlayer.pause();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             try {
                 mediaPlayer.setDataSource(url);
