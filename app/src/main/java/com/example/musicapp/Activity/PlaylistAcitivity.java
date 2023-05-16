@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import retrofit2.Response;
 public class PlaylistAcitivity extends AppCompatActivity {
     private TextView tvPlaylistName, tvPlaylistSize;
     private Button btnAddSong;
+    private ImageButton btnAddSong2;
     private Playlist playlist;
     private ImageView ivPlaylisThumbnail;
     private ConstraintLayout layoutNoSongInPlaylist;
@@ -51,12 +53,24 @@ public class PlaylistAcitivity extends AppCompatActivity {
         btnAddSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlaylistAcitivity.this, AddSongToPlaylistActivity.class);
-                intent.putExtra("playlistId", playlist.getId());
-                startActivity(intent);
+                OpenAddSongActivity();
             }
         });
+        btnAddSong2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenAddSongActivity();
+            }
+        });
+
     }
+
+    private void OpenAddSongActivity() {
+        Intent intent = new Intent(PlaylistAcitivity.this, AddSongToPlaylistActivity.class);
+        intent.putExtra("playlistId", playlist.getId());
+        startActivity(intent);
+    }
+
 
     private void CallApiGetPlaylist(String playlistId) {
         ApiService.apiService.getPlaylist(playlistId).enqueue(new Callback<Playlist>() {
@@ -95,6 +109,7 @@ public class PlaylistAcitivity extends AppCompatActivity {
         tvPlaylistName = (TextView) findViewById(R.id.tvPlaylistName);
         tvPlaylistSize = (TextView) findViewById(R.id.tvPlaylistSize);
         btnAddSong = (Button) findViewById(R.id.btnAddSong);
+        btnAddSong2 = (ImageButton) findViewById(R.id.btnAddSongToPlaylist2);
         ivPlaylisThumbnail = (ImageView) findViewById(R.id.ivPlaylistDetailThumbnail);
         layoutNoSongInPlaylist = (ConstraintLayout) findViewById(R.id.layoutNoSongInPlaylist);
         layoutHasSongInPlaylist = (ConstraintLayout) findViewById(R.id.layoutHasSongInPlaylist);

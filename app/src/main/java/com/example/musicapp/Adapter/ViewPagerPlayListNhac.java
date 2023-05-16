@@ -5,28 +5,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.musicapp.Fragment.FragmentDiaNhac;
-import com.example.musicapp.Fragment.FragmentListSongPlay;
+import com.example.musicapp.Fragment.FragmentSongInformation;
 import com.example.musicapp.Fragment.FragmentLyricsNhac;
 //import com.example.musicapp.Fragment.Fragment_Banner;
 
 import java.util.ArrayList;
 
     public class ViewPagerPlayListNhac extends FragmentPagerAdapter {
-
-    //    public ViewPagerPlayListNhac(@NonNull FragmentManager fm, int behavior) {
-    //        super(fm, behavior);
-    //    }
         public final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    private static final int NUM_PAGES = 3;
-        public static FragmentListSongPlay mFragment1;
+        private static final int NUM_PAGES = 3;
+        public static FragmentSongInformation mFragment1;
         public static FragmentDiaNhac mFragment2;
         public static FragmentLyricsNhac mFragment3;
         public ViewPagerPlayListNhac(@NonNull FragmentManager fm) {
             super(fm);
-            mFragment1 = new FragmentListSongPlay();
+            mFragment1 = new FragmentSongInformation();
             mFragment2 = new FragmentDiaNhac();
             mFragment3 = new FragmentLyricsNhac();
         }
@@ -39,7 +34,8 @@ import java.util.ArrayList;
                     return mFragment1;
                 case 1:
                     return mFragment2;
-                    case 2:return mFragment3;
+                case 2:
+                    return mFragment3;
                 default:
                     return null;
             }
@@ -63,7 +59,7 @@ import java.util.ArrayList;
                 title = "Lời bài hát";
             return title;
         }
-        public FragmentListSongPlay getFragment1() {
+        public FragmentSongInformation getFragment1() {
             return mFragment1;
         }
         public FragmentDiaNhac getFragment2() {
