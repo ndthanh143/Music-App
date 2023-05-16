@@ -129,7 +129,6 @@ public class PlayMusicActivity extends AppCompatActivity {
             }
         });
     }
-
     private void eventClick(String url)
     {
         khoiTaoMedia(url);
@@ -199,13 +198,12 @@ public class PlayMusicActivity extends AppCompatActivity {
 
         if (mediaPlayer == null)
         {
-            System.out.println("Media null");
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             try {
                 mediaPlayer.setDataSource(url);
             } catch (IOException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -240,7 +238,6 @@ public class PlayMusicActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
     @Override
     protected void onPause() {
