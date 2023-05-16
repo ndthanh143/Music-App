@@ -65,7 +65,6 @@ public class PlayMusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_nhac);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        init();
         initbtn();
         initfragment();
         GetFunc();
@@ -127,11 +126,6 @@ public class PlayMusicActivity extends AppCompatActivity {
 //                    System.out.println("Id cua bai hat dc chon la"+songId);
                     baiHatAdapter=new BaiHatAdapter(PlayMusicActivity.this,mangbaihat);
                     AddSong();
-//                    mangbaihat.clear();
-//                    mangbaihat.add(song);
-//                    adapternhac.notifyDataSetChanged();
-//                    fragmentDiaNhac.Playnhac(mangbaihat.get(0).getImageSongUrl());
-//                    getSupportActionBar().setTitle(mangbaihat.get(0).getName());
                 }
             }
 
@@ -275,7 +269,8 @@ public class PlayMusicActivity extends AppCompatActivity {
         sktime.setMax(mediaPlayer.getDuration());
     }
     private  void khoiTaoMedia(String url){
-//        if (mediaPlayer == null)
+        onPause();
+        if (mediaPlayer == null)
         {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.pause();
@@ -305,24 +300,16 @@ public class PlayMusicActivity extends AppCompatActivity {
             });
         }
     }
-    private void init(){
-//        setSupportActionBar(toolbarplaynhac);
-////        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        toolbarplaynhac.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-//        toolbarplaynhac.setTitleTextColor(Color.WHITE);
-//        if(mangbaihat.size()>0){
-//            getSupportActionBar().setTitle(mangbaihat.get(0).getName());
-//             new playMP3().execute(mangbaihat.get(0).getSongUrl());
-//            new playMP3().execute();
-//
-//            imgplay.setImageResource(R.drawable.baseline_pause_circle_24);
-//        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            isPlaying = false;
+            // Cập nhật trạng thái của giao diện ngừng phát nhạc (nếu có)
+        }
     }
+
 
 
 }
