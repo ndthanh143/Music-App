@@ -28,6 +28,7 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
     private List<Song> mListSong;
     private ListView lvListSong;
     private String playlistId;
+    private ImageView btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
 
     private void anhXa() {
         lvListSong = (ListView) findViewById(R.id.rcListSong);
+        btnClose = (ImageView) findViewById(R.id.btnCloseActivityAddSongToPlaylist);
     }
 
     private void CallApiSong() {

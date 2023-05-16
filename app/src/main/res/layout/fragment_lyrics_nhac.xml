@@ -14,6 +14,6 @@
         android:layout_margin="20dp"
         android:gravity="center_horizontal"
         android:text="@string/fragment_lyric_song"
-        android:id="@+id/txtLyric"/>
+        android:id="@+id/tvSongLyrics"/>
 
 </FrameLayout>

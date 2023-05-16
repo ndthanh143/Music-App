@@ -1,6 +1,7 @@
 package com.example.musicapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.musicapp.Activity.PlayMusicActivity;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
@@ -52,6 +54,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                 }
             });
         }
@@ -65,6 +68,14 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
         Glide.with(context)
                 .load(song.getImageSongUrl())
                 .into(holder.image);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PlayMusicActivity.class);
+                intent.putExtra("songId", song.getId());
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
