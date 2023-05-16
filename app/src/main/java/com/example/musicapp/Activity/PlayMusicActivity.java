@@ -2,7 +2,6 @@ package com.example.musicapp.Activity;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -22,7 +21,7 @@ import com.example.musicapp.Adapter.BaiHatAdapter;
 import com.example.musicapp.Adapter.ViewPagerPlayListNhac;
 import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Fragment.FragmentDiaNhac;
-import com.example.musicapp.Fragment.FragmentListSongPlay;
+import com.example.musicapp.Fragment.FragmentSongInformation;
 import com.example.musicapp.Fragment.FragmentLyricsNhac;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
@@ -39,21 +38,21 @@ import retrofit2.Response;
 
 
 public class PlayMusicActivity extends AppCompatActivity {
-    TabLayout mTabLayout;
-    Toolbar toolbarplaynhac;
-    TextView txtTimesong, txtTotaltimesong;
-    SeekBar sktime;
-    ImageButton imgplay, imgrepeat, imgnext,imgrandom;
-    ImageButton imgpre;
-    ViewPager viewPagerplaynhac;
+    private TabLayout mTabLayout;
+    private Toolbar toolbarplaynhac;
+    private TextView txtTimesong, txtTotaltimesong;
+    private SeekBar sktime;
+    private ImageButton imgplay, imgrepeat, imgnext,imgrandom;
+    private ImageButton imgpre;
+    private ViewPager viewPagerplaynhac;
     public static ViewPagerPlayListNhac adapternhac;
     private Song song;
-    FragmentListSongPlay fragmentListSongPlay;
-    FragmentLyricsNhac fragmentLyricsNhac;
-    FragmentDiaNhac fragmentDiaNhac;
-    MediaPlayer mediaPlayer;
+    private FragmentSongInformation fragmentSongInformation;
+    private FragmentLyricsNhac fragmentLyricsNhac;
+    private FragmentDiaNhac fragmentDiaNhac;
+    public MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
-    BaiHatAdapter baiHatAdapter;
+    private BaiHatAdapter baiHatAdapter;
     int position;
 
     ListView lvSong;
@@ -62,30 +61,14 @@ public class PlayMusicActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_nhac);
+        setContentView(R.layout.activity_play_music);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        init();
-        initbtn();
-        initfragment();
-        GetFunc();
+        anhXa();
         LoadSongData();
-
     }
 
-    private void initfragment() {
-        adapternhac = new ViewPagerPlayListNhac(getSupportFragmentManager());
-        fragmentDiaNhac= adapternhac.getFragment2();
-        fragmentLyricsNhac=adapternhac.getFragment3();
-        adapternhac.AddFragment(new FragmentListSongPlay());
-        adapternhac.AddFragment(new FragmentDiaNhac());
-        adapternhac.AddFragment(new FragmentLyricsNhac());
-        viewPagerplaynhac.setAdapter(adapternhac);
-//        fragmentDiaNhac =(FragmentDiaNhac) adapternhac.getItem(1);
-
-    }
-
-    private void initbtn() {
+    private void anhXa() {
         mTabLayout = findViewById(R.id.tab_layout);
         viewPagerplaynhac = findViewById((R.id.viewpagerplaynhac));
         viewPagerplaynhac.setAdapter(adapternhac);
@@ -99,10 +82,21 @@ public class PlayMusicActivity extends AppCompatActivity {
         imgrandom = findViewById(R.id.imagebuttonsuffle);
         imgpre = findViewById(R.id.imagebuttonpreview);
         imgplay = findViewById(R.id.imagebuttonplay);
+
+//        Init fragment
+        adapternhac = new ViewPagerPlayListNhac(getSupportFragmentManager());
+        fragmentSongInformation = adapternhac.getFragment1();
+        fragmentDiaNhac= adapternhac.getFragment2();
+        fragmentLyricsNhac=adapternhac.getFragment3();
+        adapternhac.AddFragment(new FragmentDiaNhac());
+        adapternhac.AddFragment(new FragmentSongInformation());
+        adapternhac.AddFragment(new FragmentLyricsNhac());
+        viewPagerplaynhac.setAdapter(adapternhac);
+        viewPagerplaynhac.setCurrentItem(1);
     }
 
     private void LoadSongData() {
-        String songId =getIntent().getStringExtra("id");
+        String songId =getIntent().getStringExtra("songId");
         ApiService.apiService.getSongId(songId).enqueue(new Callback<Song>() {
             @Override
             public void onResponse(Call<Song> call, Response<Song> response) {
@@ -111,9 +105,15 @@ public class PlayMusicActivity extends AppCompatActivity {
                     SongDTO newsong=new SongDTO(song.getId(),song.getName(), song.getArtist(), song.getSongUrl(), song.getImageSongUrl(), song.getLyrics());
                     mangbaihat.add(newsong);
                     position=0;
-                    XuLyBaiHat(mangbaihat.get(position));
+                    fragmentDiaNhac.onPause();
+                    String url=song.getSongUrl();
+                    eventClick(url);
+                    String lyric = song.getLyrics();
+                    fragmentDiaNhac.Playnhac(song.getImageSongUrl());
+                    fragmentSongInformation.LoadInformation(song);
+                    fragmentLyricsNhac.LoadLyrics(song.getLyrics());
                     baiHatAdapter=new BaiHatAdapter(PlayMusicActivity.this,mangbaihat);
-                    AddSong();
+//                    AddSong();
 //                    mangbaihat.clear();
 //                    mangbaihat.add(song);
 //                    adapternhac.notifyDataSetChanged();
@@ -130,77 +130,22 @@ public class PlayMusicActivity extends AppCompatActivity {
         });
     }
 
-    private void XuLyBaiHat(SongDTO songDTO) {
-        fragmentDiaNhac.onPause();
-//                    String url="http://res.cloudinary.com/dk9jp2gb5/video/upload/v1683964892/audio/gtnxnlkaexnarn1tokh5.mp3";
-        System.out.println("Ten bai hat la:............."+song.getName());
-        String url=songDTO.getSongUrl();
-        eventClick(url);
-        String lyric=songDTO.getLyrics();
-        fragmentDiaNhac.Playnhac(song.getImageSongUrl());
-        if (fragmentLyricsNhac != null) {
-//                        fragmentLyricsNhac.Getloibaihat(lyric);
-            System.out.println("Loi bai hat la:............."+songDTO.getLyrics());
-        }
-        else {System.out.println("----------Khong co Fragment nao het!!!-----------------------/////////////////////");}
-//                    System.out.println("Id cua bai hat dc chon la"+songId);
-    }
-
-    private void AddSong() {
-        mangbaihat=new ArrayList<SongDTO>();
-        mangbaihat.add(new SongDTO("1234","Chạm Gần thêm thương","Thu Hà",
-                "https://zingmp3.vn/bai-hat/Cham-Gan-Them-Thuong-Truc-Nhan/Z6A9FUC6.html","http://res.cloudinary.com/dk9jp2gb5/image/upload/v1683964894/audio/ebcemqatd4wefqqozgqk.jpg",
-                "Chạm tay chạm tay vuốt làn tóc mai\n" +
-                        "Thấy thời gian in dấu trên bờ vai"));
-        mangbaihat.add(new SongDTO("98645","Thưa mẹ con về","Vĩnh Quang",
-                "https://zingmp3.vn/bai-hat/Thua-Me-Con-Ve-Truong-Thao-Nhi-Vu-Dang-Quoc-Viet/Z6AABZ8A.html","http://res.cloudinary.com/dk9jp2gb5/image/upload/v1683964894/audio/ebcemqatd4wefqqozgqk.jpg",
-                "Em đâu biết rằng\n" +
-                        "Thân cò nhỏ bé"));
-    }
-
     private void eventClick(String url)
     {
+        khoiTaoMedia(url);
         imgplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mediaPlayer == null) {
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    try {
-                        mediaPlayer.setDataSource(url);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    mediaPlayer.prepareAsync();
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mediaPlayer.start();
-                            isPlaying = true;
-                            imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
-                            SetTimeTotal();
-                            Updatetime();
-                            fragmentDiaNhac.onResume();
-                        }
-                    });
-                    mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                        @Override
-                        public boolean onError(MediaPlayer mp, int what, int extra) {
-                            return false;
-                        }
-                    });
+                if (isPlaying) {
+                    mediaPlayer.pause();
+                    isPlaying = false;
+                    imgplay.setImageResource(R.drawable.iconplay);
+                    fragmentDiaNhac.onPause();
                 } else {
-                    if (isPlaying) {
-                        mediaPlayer.pause();
-                        isPlaying = false;
-                        imgplay.setImageResource(R.drawable.iconplay);
-                        fragmentDiaNhac.onPause();
-                    } else {
-                        mediaPlayer.start();
-                        isPlaying = true;
-                        imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
-                        fragmentDiaNhac.onResume();
-                    }
+                    mediaPlayer.start();
+                    isPlaying = true;
+                    imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
+                    fragmentDiaNhac.onResume();
                 }
             }
         });
@@ -220,41 +165,10 @@ public class PlayMusicActivity extends AppCompatActivity {
                 mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
-        imgnext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                position++;
-//                if (position> mangbaihat.size()) {
-//                    position = 0;
-//                }
-//                if (mediaPlayer.isPlaying()) mediaPlayer.stop();
-//                khoiTaoMedia();
-//                XuLyBaiHat(mangbaihat.get(position));
-//                mediaPlayer.start();
-//                imgplay.setImageResource(android.R.drawable.ic_media_pause);
-            }
-        });
-    }
-
-    private void GetFunc() {
 
     }
     private void Updatetime(){
         final Handler handler=new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (adapternhac.getItem(1)!=null){
-//                    if (mangbaihat.size()>0){
-//                        fragmentDiaNhac.Playnhac(mangbaihat.get(0).getImageSongUrl());
-//                        handler.removeCallbacks(this);
-//                    }
-//                    else {
-//                        handler.postDelayed(this,300);
-//                    }
-//                }
-//            }
-//        },500);
         handler.postDelayed(()->{
             SimpleDateFormat time = new SimpleDateFormat("mm:ss");
             txtTimesong.setText(time.format(mediaPlayer.getCurrentPosition()));
@@ -266,7 +180,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                     position=0;
                 }
                 if(mediaPlayer.isPlaying()){mediaPlayer.stop();}
-                khoiTaoMedia();
+                khoiTaoMedia(mangbaihat.get(position).getSongUrl());
                 mediaPlayer.start();
                 imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
                 SetTimeTotal();
@@ -276,61 +190,66 @@ public class PlayMusicActivity extends AppCompatActivity {
         },100);
     }
 
-
-//    class playMP3 extends AsyncTask<String,Void,String>{
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            return strings[0];
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String song) {
-//            super.onPostExecute(song);
-//            try {
-//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mediaPlayer) {
-//                    mediaPlayer.stop();
-//                    mediaPlayer.reset();
-//                }
-//            });
-//                mediaPlayer.setDataSource(song);
-//                mediaPlayer.prepare();
-//            } catch (IOException e) {
-////                throw new RuntimeException(e);
-//                e.printStackTrace();
-//            }
-//            mediaPlayer.start();
-//            SetTimeTotal();
-//        }
-//    }
-//
     private void SetTimeTotal() {
         SimpleDateFormat timeTotal = new SimpleDateFormat("mm:ss");
         txtTotaltimesong.setText(timeTotal.format(mediaPlayer.getDuration()));
         sktime.setMax(mediaPlayer.getDuration());
     }
-    private  void khoiTaoMedia(){
-        mediaPlayer = MediaPlayer.create(this, Uri.parse(mangbaihat.get(position).getImageSongUrl()));
+    private void khoiTaoMedia(String url) {
+
+        if (mediaPlayer == null)
+        {
+            System.out.println("Media null");
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mediaPlayer.setDataSource(url);
+            } catch (IOException e) {
+                throw new RuntimeException();
+            }
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mediaPlayer.start();
+                    isPlaying = true;
+                    imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
+                    SetTimeTotal();
+                    Updatetime();
+                    fragmentDiaNhac.onResume();
+                }
+            });
+        } else {
+            System.out.println("Media playing");
+            mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(url);
+            } catch (IOException e) {
+                throw new RuntimeException();
+            }
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                    isPlaying = true;
+                    imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
+                    SetTimeTotal();
+                    Updatetime();
+                    fragmentDiaNhac.onResume();
+                }
+            });
+        }
+
     }
-    private void init(){
-//        setSupportActionBar(toolbarplaynhac);
-////        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        toolbarplaynhac.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-//        toolbarplaynhac.setTitleTextColor(Color.WHITE);
-//        if(mangbaihat.size()>0){
-//            getSupportActionBar().setTitle(mangbaihat.get(0).getName());
-//             new playMP3().execute(mangbaihat.get(0).getSongUrl());
-//            new playMP3().execute();
-//
-//            imgplay.setImageResource(R.drawable.baseline_pause_circle_24);
-//        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            isPlaying = false;
+            // Cập nhật trạng thái của giao diện ngừng phát nhạc (nếu có)
+        }
     }
 
 

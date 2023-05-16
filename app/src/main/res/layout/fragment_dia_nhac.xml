@@ -12,8 +12,7 @@
         android:layout_centerInParent="true"
         android:src="@drawable/dianhac"
         app:civ_border_color="#232222"
-        app:civ_border_width="2dp"
-        >
+        app:civ_border_width="2dp">
 
     </de.hdodenhof.circleimageview.CircleImageView>
 </RelativeLayout>

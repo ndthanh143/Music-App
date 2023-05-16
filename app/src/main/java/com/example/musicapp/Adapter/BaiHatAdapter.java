@@ -62,7 +62,7 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
             public void onClick(View view) {
 //                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-                intent.putExtra("id", song.getId());
+                intent.putExtra("songId", song.getId());
                 holder.itemView.getContext().startActivity(intent);
             }
         });
