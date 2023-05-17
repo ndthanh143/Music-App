@@ -195,7 +195,6 @@ public class PlayMusicActivity extends AppCompatActivity {
         sktime.setMax(mediaPlayer.getDuration());
     }
     private void khoiTaoMedia(String url) {
-
         if (mediaPlayer == null)
         {
             mediaPlayer = new MediaPlayer();
@@ -248,6 +247,7 @@ public class PlayMusicActivity extends AppCompatActivity {
             // Cập nhật trạng thái của giao diện ngừng phát nhạc (nếu có)
         }
     }
+
 
 
 }
