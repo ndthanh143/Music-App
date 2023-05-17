@@ -43,7 +43,7 @@
                 android:text="HarmoniQ"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -94,7 +94,8 @@
                     android:layout_marginStart="16dp"
                     android:text="Thể loại"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_music_type"
@@ -115,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginEnd="5dp"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout"
@@ -126,9 +128,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Bài hát gần đây"
+                    android:text="Bài hát mới nhất"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_recent_song"
@@ -137,6 +140,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:foregroundGravity="center"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

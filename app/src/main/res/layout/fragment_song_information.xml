@@ -5,44 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#4D2b345f"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvSongInformationArtist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/tvSongInformationName"
-            app:layout_constraintTop_toBottomOf="@+id/tvSongInformationName" />
-
+        <ImageView
+            android:id="@+id/ivSongInformationImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars"
+            android:scaleType="fitXY"
+            />
         <TextView
             android:id="@+id/tvSongInformationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="16dp"
-            app:layout_constraintStart_toEndOf="@+id/ivSongInformationImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/ivSongInformationImage" />
+        <TextView
+            android:id="@+id/tvSongInformationArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/ivSongInformationImage"
+            android:layout_below="@+id/tvSongInformationName" />
 
-        <ImageView
-            android:id="@+id/ivSongInformationImage"
-            android:layout_width="103dp"
-            android:layout_height="89dp"
-            android:layout_marginStart="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Thể loại"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -69,7 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Cung cấp"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -80,7 +89,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="28dp"
             android:text="Album"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,8 +102,9 @@
             android:layout_marginStart="136dp"
             android:layout_marginTop="28dp"
             android:text="Album"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +115,8 @@
             android:layout_marginTop="20dp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tvSongInformationAlbum"
             app:layout_constraintTop_toBottomOf="@+id/tvSongInformationAlbum" />
 
@@ -114,7 +127,8 @@
             android:layout_marginTop="24dp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tvSongInformationType"
             app:layout_constraintTop_toBottomOf="@+id/tvSongInformationType" />
     </androidx.constraintlayout.widget.ConstraintLayout>

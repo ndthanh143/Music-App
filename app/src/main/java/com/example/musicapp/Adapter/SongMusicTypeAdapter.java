@@ -63,7 +63,7 @@ public class SongMusicTypeAdapter extends RecyclerView.Adapter<SongMusicTypeAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-                intent.putExtra("SongId", Song.getId());
+                intent.putExtra("songId", Song.getId());
                 holder.itemView.getContext().startActivity(intent);
             }
         });

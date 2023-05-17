@@ -28,7 +28,9 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
                 android:text="@string/fragment_lyric_song"
-                android:textSize="22sp" />
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
         </LinearLayout>
     </ScrollView>
 
