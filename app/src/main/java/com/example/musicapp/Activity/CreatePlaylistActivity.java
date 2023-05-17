@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -20,6 +21,7 @@ import retrofit2.Response;
 
 public class CreatePlaylistActivity extends AppCompatActivity {
     private Button btnCreate;
+    ImageButton btnClose;
     private EditText edtPlaylistName;
 
     @Override
@@ -36,6 +38,13 @@ public class CreatePlaylistActivity extends AppCompatActivity {
                 dto.setName(playlistName);
                 dto.setUser(null);
                 CallApiCreatePlaylist(dto);
+            }
+        });
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreatePlaylistActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -62,5 +71,6 @@ public class CreatePlaylistActivity extends AppCompatActivity {
     private void anhxa() {
         btnCreate = (Button) findViewById(R.id.btnCreatePlaylist);
         edtPlaylistName = (EditText) findViewById(R.id.edtPlaylistName);
+        btnClose = findViewById(R.id.imageView11);
     }
 }

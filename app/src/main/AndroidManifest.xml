@@ -28,11 +28,7 @@
         <activity
             android:name=".Activity.PlaylistAcitivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -54,7 +50,22 @@
             android:name=".Activity.Upload_music"
             android:exported="false" />
         <activity
-            android:name=".Activity.MusicSearch"
+            android:name=".Activity.SongMusicTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AcountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.InforPersonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChangeInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChangePassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MusicSearchActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -73,7 +84,11 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"

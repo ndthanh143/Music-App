@@ -104,7 +104,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                     song = response.body();
                     SongDTO newsong=new SongDTO(song.getId(),song.getName(), song.getArtist(), song.getSongUrl(), song.getImageSongUrl(), song.getLyrics());
                     mangbaihat.add(newsong);
-                    position=0;
+//                    position=0;
                     fragmentDiaNhac.onPause();
                     String url=song.getSongUrl();
                     eventClick(url);
