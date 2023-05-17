@@ -1,21 +1,21 @@
 package com.example.musicapp.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.musicapp.Activity.AcountActivity;
+import com.example.musicapp.Activity.SongMusicTypeActivity;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.R;
 
@@ -45,23 +45,29 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<MusicTypeAdapter.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            images = (ImageView) itemView.findViewById(R.id.image_theloai);
-            tentheloai = (TextView) itemView.findViewById(R.id.tvNameTheloai);
+            images =itemView.findViewById(R.id.image_theloai);
+//            tentheloai = (TextView) itemView.findViewById(R.id.tvNameTheloai);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
         }
     }
     @Override
     public void onBindViewHolder(@NonNull MusicTypeAdapter.MyViewHolder holder, int position) {
         MusicType musicType =array.get(position);
-        holder.tentheloai.setText(musicType.getName());
+//        holder.tentheloai.setText(musicType.getName());
         Glide.with(context)
                 .load(musicType.getThumbnaiUrll())
                 .into(holder.images);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, SongMusicTypeActivity.class);
+                intent.putExtra("musicTypeId", musicType.getId());
+                intent.putExtra("musicTypeImage", musicType.getThumbnaiUrll());
+                intent.putExtra("musicTypeName", musicType.getName());
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

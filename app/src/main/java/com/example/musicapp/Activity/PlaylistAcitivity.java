@@ -12,6 +12,7 @@ import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,8 +32,8 @@ import retrofit2.Response;
 
 public class PlaylistAcitivity extends AppCompatActivity {
     private TextView tvPlaylistName, tvPlaylistSize;
-    private Button btnAddSong;
-    private ImageButton btnAddSong2;
+    private Button btnAddSong, btnRandomPlay;
+    private ImageButton btnAddSong2,ivback;
     private Playlist playlist;
     private ImageView ivPlaylisThumbnail;
     private ConstraintLayout layoutNoSongInPlaylist;
@@ -60,6 +62,29 @@ public class PlaylistAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 OpenAddSongActivity();
+            }
+        });
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển sang Activity mới
+                Intent intent = new Intent(PlaylistAcitivity.this, MainActivity.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+            }
+        });
+        btnRandomPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Random random = new Random();
+
+                // Tạo số ngẫu nhiên trong khoảng từ 0 đến 100
+                int randomNumber = random.nextInt(playlist.getListSongs().size());
+                String id=playlist.getListSongs().get(randomNumber).getId();
+                System.out.println("Mã ID random la........"+id+"....."+playlist.getListSongs().get(randomNumber).getName());
+                Intent intent1=new Intent(PlaylistAcitivity.this,PlayMusicActivity.class);
+                intent1.putExtra("songId", id);
+                startActivity(intent1);
             }
         });
 
@@ -114,5 +139,7 @@ public class PlaylistAcitivity extends AppCompatActivity {
         layoutNoSongInPlaylist = (ConstraintLayout) findViewById(R.id.layoutNoSongInPlaylist);
         layoutHasSongInPlaylist = (ConstraintLayout) findViewById(R.id.layoutHasSongInPlaylist);
         rcListSong = (RecyclerView) findViewById(R.id.rcListSongInPlaylist);
+        ivback = findViewById(R.id.ivbackplaylist);
+        btnRandomPlay = findViewById(R.id.button7);
     }
 }

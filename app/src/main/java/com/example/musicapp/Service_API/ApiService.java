@@ -26,7 +26,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
 public interface ApiService {
     // Tạo OkHttpClient và thiết lập thời gian chờ
     OkHttpClient client = new OkHttpClient.Builder()
@@ -60,6 +59,10 @@ public interface ApiService {
     Call<List<Song>> getAllSong();
     @GET("song/{id}")
     Call<Song> getSongId(@Path("id") String songId);
+    @GET("song/search")
+    Call<List<Song>> findSongByName(@Query("q") String query);
+    @GET("song/all/{musicTypeId}")
+    Call<List<Song>> listSongType(@Path("musicTypeId") String musicTypeId);
 
 
     //    Playlist
@@ -75,4 +78,5 @@ public interface ApiService {
     Call<User> signUp(@Body UserSignupDTO userSignupDTO);
     @POST("auth/{email}/verify")
     Call<String> verifyOtp(@Path("email") String email, @Query("otp") String otp);
+
 }

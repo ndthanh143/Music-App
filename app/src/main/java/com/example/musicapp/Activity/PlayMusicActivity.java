@@ -105,7 +105,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                     song = response.body();
                     SongDTO newsong=new SongDTO(song.getId(),song.getName(), song.getArtist(), song.getSongUrl(), song.getImageSongUrl(), song.getLyrics());
                     mangbaihat.add(newsong);
-                    position=0;
+//                    position=0;
                     fragmentDiaNhac.onPause();
                     String url=song.getSongUrl();
                     eventClick(url);
@@ -130,7 +130,6 @@ public class PlayMusicActivity extends AppCompatActivity {
             }
         });
     }
-
     private void eventClick(String url)
     {
         khoiTaoMedia(url);
@@ -197,16 +196,14 @@ public class PlayMusicActivity extends AppCompatActivity {
         sktime.setMax(mediaPlayer.getDuration());
     }
     private void khoiTaoMedia(String url) {
-
         if (mediaPlayer == null)
         {
-            System.out.println("Media null");
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             try {
                 mediaPlayer.setDataSource(url);
             } catch (IOException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -241,7 +238,6 @@ public class PlayMusicActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
     @Override
     protected void onPause() {
@@ -252,6 +248,7 @@ public class PlayMusicActivity extends AppCompatActivity {
             // Cập nhật trạng thái của giao diện ngừng phát nhạc (nếu có)
         }
     }
+
 
 
 }

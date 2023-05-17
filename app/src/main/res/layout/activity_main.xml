@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@drawable/background_musicapp1"
+    android:weightSum="10"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,15 +14,14 @@
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="8">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_musicapp1"
             android:padding="3dp"
             tools:context=".Activity.MainActivity">
-
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="45dp"
@@ -58,7 +59,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/menu" />
 
-            <EditText
+            <TextView
                 android:id="@+id/search_input"
                 android:layout_width="327dp"
                 android:layout_height="50dp"
@@ -66,13 +67,12 @@
                 android:background="@drawable/search_background"
                 android:drawableEnd="@drawable/search_icon"
                 android:ems="10"
-                android:hint="Find song here!"
+                android:hint="Tìm kiếm"
                 android:inputType="textPersonName"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:padding="15dp"
                 android:textColor="#333"
                 android:textColorHint="#333"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,11 +149,12 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="#4D616161"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_weight="2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -234,4 +235,4 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

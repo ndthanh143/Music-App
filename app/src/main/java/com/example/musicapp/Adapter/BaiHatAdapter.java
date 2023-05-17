@@ -61,6 +61,7 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
             @Override
             public void onClick(View view) {
 //                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
+                System.out.println("---Nhan vao dc item bai hat---------");
                 Intent intent = new Intent(context, PlayMusicActivity.class);
                 intent.putExtra("songId", song.getId());
                 holder.itemView.getContext().startActivity(intent);
@@ -71,5 +72,10 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
     @Override
     public int getItemCount() {
         return array == null ? 0 : array.size();
+    }
+    public void setData(List<SongDTO> newList) {
+        array.clear();
+        array.addAll(newList);
+        notifyDataSetChanged();
     }
 }

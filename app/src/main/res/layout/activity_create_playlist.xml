@@ -9,7 +9,7 @@
 
     tools:context=".Activity.CreatePlaylistActivity">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageView11"
         android:layout_width="36dp"
         android:layout_height="36dp"
@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_close_24" />
+        android:background="@drawable/ic_baseline_close_24" />
 
     <TextView
         android:id="@+id/textView15"
