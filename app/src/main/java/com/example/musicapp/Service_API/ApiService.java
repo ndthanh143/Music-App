@@ -5,6 +5,7 @@ import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.Model.Song;
+import com.example.musicapp.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,9 +21,11 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryName;
 
 public interface ApiService {
-    String BASE_URL = "http://192.168.1.184:8080/api/";
+    String BASE_URL = "http://192.168.1.7:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -46,6 +49,10 @@ public interface ApiService {
     Call<List<Song>> getAllSong();
     @GET("song/{id}")
     Call<Song> getSongId(@Path("id") String songId);
+    @GET("song/search")
+    Call<List<Song>> findSongByName(@Query("q") String query);
+    @GET("song/all/{musicTypeId}")
+    Call<List<Song>> listSongType(@Path("musicTypeId") String musicTypeId);
 
 
     //    Playlist
@@ -55,4 +62,11 @@ public interface ApiService {
     Call<Playlist> createPlaylist(@Body PlaylistDTO playlistDTO);
     @PUT("playlist/{id}/add-song")
     Call<Playlist> addSongToPlaylist(@Path("id") String playlistId, @Body Song song);
+
+    //User
+    @GET("user/{id}")
+    Call<User> getUserfromId(@Path("id") String userId);
+    @FormUrlEncoded
+    @POST("auth/login")
+    Call<User> login(@Field("email") String username, @Field("password") String password);
 }

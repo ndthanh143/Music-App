@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161622"
+    tools:context=".Activity.InforPersonActivity">
+
+    <LinearLayout
+        android:id="@+id/layoutsearch"
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:background="#242633"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/baseline_keyboard_backspace_24"
+            android:id="@+id/btn_back_info"/>
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:text="Thông tin cá nhân"
+            android:gravity="left|center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/changeinfor"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/layoutsearch">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/user"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/changeinfor">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:text="Thông tin cơ bản"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:background="#242633"
+            android:layout_marginBottom="2dp"
+            android:layout_height="70dp">
+
+            <TextView
+                android:id="@+id/taikhoan"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Tên tài khoản"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:layout_below="@+id/taikhoan"
+                android:text="DuyThanh"
+                android:textSize="16dp"
+               android:textColor="@color/white"
+                android:id="@+id/tvTentaikhoan"/>
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/btnAcount"
+                    android:background="@drawable/baseline_arrow_forward_ios_24" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginBottom="2dp"
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:background="#242633"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/matkhau"
+                android:layout_width="340dp"
+                android:layout_height="30dp"
+                android:text="Mật khẩu"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_below="@id/matkhau"
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:text="*************"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:id="@+id/tvPass"/>
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:id="@+id/btnPass"
+                android:background="@drawable/baseline_arrow_forward_ios_24" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:background="#242633"
+            android:orientation="vertical"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/gmail"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Gmail"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:text="duythanh@gmail.com"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:id="@+id/tvGmail"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:background="#242633"
+            android:orientation="vertical"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Số điện thoại"
+                android:textSize="20dp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:text="0987654321"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:id="@+id/tvSdt"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

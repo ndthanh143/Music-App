@@ -1,22 +1,26 @@
 package com.example.musicapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicapp.Adapter.BaiHatAdapter;
 import com.example.musicapp.Adapter.MusicTypeAdapter;
 import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.MusicType;
-import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
-import com.example.musicapp.Service_API.RetrofitClient;
 import com.example.musicapp.Service_API.ApiService;
 
 import java.util.ArrayList;
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ApiService apiService;
 
     Handler handler=new Handler();
+    TextView search_input;
+    ImageView ivAddMore,ivFavourite,ivExplore,ivAccount;
 
 
     @Override
@@ -47,7 +53,63 @@ public class MainActivity extends AppCompatActivity {
         mListMusicTypes = new ArrayList<>();
         CallApiMusicType();
         RecyclerViewListSong();
+        anhXa();
+        xuLyBtn();
 //        Test
+    }
+
+
+
+    private void anhXa() {
+
+        search_input = findViewById(R.id.search_input);
+        ivExplore = findViewById(R.id.ivExplore);
+        ivAccount = findViewById(R.id.ivAccount);
+        ivAddMore = findViewById(R.id.ivAddMore);
+        ivFavourite = findViewById(R.id.ivFavourite);
+
+    }
+    private void xuLyBtn() {
+        search_input.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Áp dụng animation
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_up);
+                search_input.startAnimation(animation);
+
+                // Chuyển sang Activity mới
+                Intent intent = new Intent(MainActivity.this, MusicSearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        ivAddMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
+                // Chuyển sang Activity mới
+                Intent intent = new Intent(MainActivity.this, CreatePlaylistActivity.class);
+                startActivity(intent);
+            }
+        });
+        ivExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển sang Activity mới
+                Intent intent = new Intent(MainActivity.this, PlaylistAcitivity.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
+            }
+        });
+        ivAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển sang Activity mới
+//                search_input.startAnimation(animation);
+                Intent intent = new Intent(MainActivity.this, AcountActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void RecyclerViewListSong() {

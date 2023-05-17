@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,8 +32,10 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
     private List<Song> mListSong;
     private ListView lvListSong;
     private String playlistId;
-    private ImageView btnClose;
-
+    private ImageButton btnClose;
+    private EditText searchview;
+    private Runnable apiRunnable;
+    private Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +50,47 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
 
     private void anhXa() {
         lvListSong = (ListView) findViewById(R.id.rcListSong);
-        btnClose = (ImageView) findViewById(R.id.btnCloseActivityAddSongToPlaylist);
+        btnClose =findViewById(R.id.btnCloseActivityAddSongToPlaylist);
+        searchview = findViewById(R.id.seachView1);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển sang Activity mới
+                Intent intent = new Intent(AddSongToPlaylistActivity.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
+            }
+        });
+        searchview.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không cần thực hiện gì trước khi thay đổi
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Hủy bỏ việc gọi API trước đó nếu có
+                if (apiRunnable != null) {
+                    handler.removeCallbacks(apiRunnable);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Gọi API sau một khoảng thời gian trễ
+                apiRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        String query = searchview.getText().toString();
+//                        RecyclerViewListSong(query);
+                    }
+                };
+
+                // Thực hiện gọi API sau 1 giây (hoặc khoảng thời gian mong muốn)
+                handler.postDelayed(apiRunnable, 400);
+            }
+        });
+
     }
 
     private void CallApiSong() {
