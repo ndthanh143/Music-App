@@ -25,8 +25,9 @@ import java.util.List;
 public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapter.MyViewHolder> {
     Context context;
     List<Song> array;
+    String playlistId;
 
-    public PlaylistSongAdapter(Context context, List<Song> array) {
+    public PlaylistSongAdapter(Context context, List<Song> array, String playlistId) {
         this.context = context;
         this.array = array;
     }
@@ -72,6 +73,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlayMusicActivity.class);
+//                intent.putParcelableArrayListExtra("songList", array);
                 intent.putExtra("songId", song.getId());
                 holder.itemView.getContext().startActivity(intent);
             }

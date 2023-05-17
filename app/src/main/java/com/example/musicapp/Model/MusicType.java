@@ -28,4 +28,10 @@ public class MusicType {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+
+    public MusicType(String id, String name, String thumbnailUrl) {
+        this.id = id;
+        this.name = name;
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }

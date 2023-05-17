@@ -93,6 +93,7 @@ public class PlayMusicActivity extends AppCompatActivity {
         adapternhac.AddFragment(new FragmentLyricsNhac());
         viewPagerplaynhac.setAdapter(adapternhac);
         viewPagerplaynhac.setCurrentItem(1);
+        viewPagerplaynhac.setOffscreenPageLimit(3);
     }
 
     private void LoadSongData() {

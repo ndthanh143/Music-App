@@ -46,4 +46,12 @@ public class Playlist {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Playlist(String id, String name, String thumbnail, List<Song> listSongs, User user) {
+        this.id = id;
+        this.name = name;
+        this.thumbnail = thumbnail;
+        this.listSongs = listSongs;
+        this.user = user;
+    }
 }

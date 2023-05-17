@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.musicapp.Fragment.FragmentDiaNhac;
 import com.example.musicapp.Fragment.FragmentSongInformation;
 import com.example.musicapp.Fragment.FragmentLyricsNhac;
-//import com.example.musicapp.Fragment.Fragment_Banner;
 
 import java.util.ArrayList;
 

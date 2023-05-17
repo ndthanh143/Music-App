@@ -2,6 +2,7 @@ package com.example.musicapp.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,8 +33,8 @@ public class FragmentSongInformation extends Fragment {
     private TextView tvSongName, tvSongArtist, tvSongAlbum, tvSongType, tvSongProvider;
     @Override
     @Nullable
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_song_information, container, false);
         anhXa();
         return view;
