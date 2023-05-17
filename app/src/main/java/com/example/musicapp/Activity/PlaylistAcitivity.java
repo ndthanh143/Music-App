@@ -113,7 +113,7 @@ public class PlaylistAcitivity extends AppCompatActivity {
                 } else {
                     layoutNoSongInPlaylist.setVisibility(View.GONE);
                     layoutHasSongInPlaylist.setVisibility(View.VISIBLE);
-                    playlistSongAdapter = new PlaylistSongAdapter(PlaylistAcitivity.this, playlist.getListSongs());
+                    playlistSongAdapter = new PlaylistSongAdapter(PlaylistAcitivity.this, playlist.getListSongs(), playlist.getId());
                     rcListSong.setHasFixedSize(true);
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
                     rcListSong.setLayoutManager(layoutManager);

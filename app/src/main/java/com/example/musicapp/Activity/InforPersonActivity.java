@@ -64,27 +64,27 @@ public class InforPersonActivity extends AppCompatActivity {
     }
 
     private void CallApi() {
-        String UserId =getIntent().getStringExtra("userId");
-        ApiService.apiService.getUserfromId(UserId).enqueue(new Callback<User>() {
-
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful() && response.body() != null){
-                    user = response.body();
-                    tvTentaikhoan.setText(user.getName());
-                    tvPass.setText(user.getPassword());
-                    tvGmail.setText(user.getEmail());
-                    tvSdt.setText(user.getPhone());
-                    System.out.println("Get duoc User");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.e("=====", "Call fail");
-                Log.e("=====", t.getMessage());
-                System.out.println("Khong Get duoc User");
-            }
-        });
+//        String UserId =getIntent().getStringExtra("userId");
+//        ApiService.apiService.getUserfromId(UserId).enqueue(new Callback<User>() {
+//
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                if (response.isSuccessful() && response.body() != null){
+//                    user = response.body();
+//                    tvTentaikhoan.setText(user.getName());
+//                    tvPass.setText(user.getPassword());
+//                    tvGmail.setText(user.getEmail());
+//                    tvSdt.setText(user.getPhone());
+//                    System.out.println("Get duoc User");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Log.e("=====", "Call fail");
+//                Log.e("=====", t.getMessage());
+//                System.out.println("Khong Get duoc User");
+//            }
+//        });
     }
 }

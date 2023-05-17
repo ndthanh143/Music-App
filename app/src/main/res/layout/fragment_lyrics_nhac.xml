@@ -7,13 +7,29 @@
     tools:context=".Fragment.FragmentLyricsNhac">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="25sp"
-        android:layout_margin="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/fragment_lyric_song"
-        android:id="@+id/tvSongLyrics"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSongLyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:text="@string/fragment_lyric_song"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
