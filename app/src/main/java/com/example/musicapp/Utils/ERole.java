@@ -1,4 +1,4 @@
-package com.example.musicapp.utils;
+package com.example.musicapp.Utils;
 
 public enum ERole {
     ROLE_USER,

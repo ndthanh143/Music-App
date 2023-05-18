@@ -1,12 +1,14 @@
 package com.example.musicapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.musicapp.Adapter.AddSongToPlaylistAdapter;
+import com.example.musicapp.Adapter.SearchAdapter;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
@@ -83,7 +86,7 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         String query = searchview.getText().toString();
-//                        RecyclerViewListSong(query);
+                        RecyclerViewListSong(query);
                     }
                 };
 
@@ -112,4 +115,36 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
             }
         });
     }
+    private void RecyclerViewListSong(String query) {
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+//        rcSong = findViewById(R.id.songsList);
+//        rcSong.setLayoutManager(linearLayoutManager);
+        //Get API
+        ApiService.apiService.findSongByName(query).enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                if(response.isSuccessful()){
+                    mListSong=response.body();
+                    mListSong = response.body();
+                    songAdapter = new AddSongToPlaylistAdapter(AddSongToPlaylistActivity.this,R.layout.viewholder_song_addition_display, mListSong, playlistId);
+//                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+//                lvListSong.setLayoutManager(layoutManager);
+                    lvListSong.setAdapter(songAdapter);
+                    songAdapter.notifyDataSetChanged();
+                }else{
+                    int statusCode=response.code();
+                    System.out.println("-----Ko tim dc bai hat-------"+statusCode+query);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d("logg",t.getMessage());
+                System.out.println("No Database");
+            }
+        });
+
+    }
+
 }

@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#161622">
+    android:background="@drawable/background_musicapp1">
 
 
     <ImageButton
         android:id="@+id/ivbackplaylist1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintHorizontal_bias="0.047"
@@ -58,7 +58,6 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="PLAYLIST"
             android:textColor="#FFFFFF"
             android:textSize="30sp"

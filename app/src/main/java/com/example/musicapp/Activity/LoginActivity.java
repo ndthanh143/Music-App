@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             dto.setId(user.getId());
                             dto.setName(user.getName());
                             dto.setPhone(user.getPhone());
+                            System.out.println("Dang nhap vao duoc");
 
                             SharedPrefManager.getInstance(getApplicationContext()).userLogin(dto);
                             finish();
@@ -86,10 +87,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     } catch (RuntimeException e) {
                         e.printStackTrace();
+                        System.out.println("Khong Dang nhap vao duoc");
+
                     }
 
                 } else {
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    System.out.println("Khong Dang nhap vao duoc");
                 }
             }
 

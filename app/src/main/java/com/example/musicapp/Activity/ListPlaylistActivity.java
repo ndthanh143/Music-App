@@ -83,12 +83,13 @@ public class ListPlaylistActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     mListPlaylist = response.body();
 //                    int i =playlist.getListSongs().size();
-                    int i=0;
-                    if(i == 0) {
-                        layoutHasPlaylist.setVisibility(View.GONE);
-                        layoutNoPlaylist.setVisibility(View.VISIBLE);
-                    }
-                    else{
+////                    int i=0;
+//                    if(playlist.getListSongs().size() == 0) {
+//                        layoutHasPlaylist.setVisibility(View.GONE);
+//                        layoutNoPlaylist.setVisibility(View.VISIBLE);
+//                    }
+//                    else
+                    {
                         layoutHasPlaylist.setVisibility(View.VISIBLE);
                         layoutNoPlaylist.setVisibility(View.GONE);
                     ListPlaylistAdapter playlistAdapter = new ListPlaylistAdapter(ListPlaylistActivity.this,mListPlaylist);

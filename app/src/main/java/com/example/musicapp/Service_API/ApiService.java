@@ -2,6 +2,7 @@ package com.example.musicapp.Service_API;
 
 import com.example.musicapp.DTO.PlaylistDTO;
 import com.example.musicapp.DTO.SongDTO;
+import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.DTO.UserSignupDTO;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
@@ -35,7 +36,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.156:8080/api/";
+    String BASE_URL = "http://192.168.1.2:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -85,4 +86,10 @@ public interface ApiService {
     @POST("auth/login")
     Call<User> login(@Query("email") String email, @Query("password") String password);
 
+    //User
+    @PUT("user/{id}")
+    Call<User> updateName(@Path("id") String userId, @Body UserSignupDTO user);
+
+    @PUT("user/update-password/{id}")
+    Call<User> changePassword(@Path("id") String userId, @Query("oldPassword") String oldPass, @Query("newPassword") String newPass);
 }

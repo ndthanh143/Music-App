@@ -7,13 +7,14 @@
     <LinearLayout
         android:id="@+id/layoutsearch"
         android:layout_width="412dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:background="#242633"
         android:orientation="horizontal">
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
             android:background="@drawable/baseline_keyboard_backspace_24"
             android:id="@+id/btn_back_change_acount"/>
         <TextView
@@ -31,7 +32,7 @@
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/editchangde"
+        android:id="@+id/edtOldPassword"
         android:layout_below="@+id/layoutsearch"
         android:hint="Nhập tên tài khoản mới"
         android:textColor="@color/white"
@@ -41,12 +42,13 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_below="@id/editchangde"
+        android:layout_below="@id/edtOldPassword"
         android:layout_marginLeft="259dp"
         android:layout_marginTop="9dp"
         android:background="@drawable/bgr_add_music"
         android:text="Update"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:id="@+id/btnUpdate"/>
 
 
 </RelativeLayout>
