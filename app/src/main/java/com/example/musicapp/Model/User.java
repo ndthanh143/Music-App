@@ -1,6 +1,6 @@
 package com.example.musicapp.Model;
 
-import com.example.musicapp.utils.ERole;
+import com.example.musicapp.Utils.ERole;
 
 public class User {
     private String id;

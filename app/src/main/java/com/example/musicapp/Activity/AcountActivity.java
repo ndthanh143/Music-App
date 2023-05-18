@@ -21,7 +21,7 @@ public class AcountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_personal);
+        setContentView(R.layout.activity_account);
         anhXa();
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#161622">
+    android:background="#161622"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/layoutsearch"
         android:layout_width="412dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:background="#242633"
         android:orientation="horizontal">
+
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/btn_back_pass"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/baseline_keyboard_backspace_24"
-            android:id="@+id/btn_back_pass"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/baseline_keyboard_backspace_24" />
+
         <TextView
             android:layout_width="270dp"
             android:layout_height="match_parent"
+            android:gravity="left|center"
             android:paddingLeft="10dp"
             android:text="Mật khẩu"
-            android:gravity="left|center"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <EditText
-        android:paddingLeft="20dp"
+        android:id="@+id/edtOldPassword"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/editchangde"
         android:layout_below="@+id/layoutsearch"
         android:hint="Nhập mật khẩu cũ"
+        android:paddingLeft="20dp"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textColorHint="#696969"/>
+        android:textColorHint="#696969"
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editchangde1"
+        android:id="@+id/edtNewPassword"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/editchangde"
+        android:layout_below="@+id/edtOldPassword"
         android:hint="Nhập mật khẩu mới"
         android:paddingLeft="20dp"
         android:textColor="@color/white"
@@ -51,20 +55,21 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editchangde3"
+        android:id="@+id/edtNewConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/editchangde1"
-        android:hint="Nhập lại mật khẩu"
+        android:layout_below="@+id/edtNewPassword"
+        android:hint="Nhập lại mật khẩu mới"
         android:paddingLeft="20dp"
         android:textColor="@color/white"
         android:textColorHint="#696969"
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/btnUpdate"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_below="@id/editchangde3"
+        android:layout_below="@id/edtNewConfirmPassword"
         android:layout_marginLeft="259dp"
         android:layout_marginTop="9dp"
         android:background="@drawable/bgr_add_music"
