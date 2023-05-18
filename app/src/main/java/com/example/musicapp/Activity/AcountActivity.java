@@ -9,17 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.R;
+import com.example.musicapp.Service_Local.SharedPrefManager;
 
 public class AcountActivity extends AppCompatActivity {
 
     ImageButton ivback,ivSetting;
     TextView tvInfo,tvChagePass,tvDangxuat;
+    TextView tvUsername;
+    UserDTO user;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_personal);
+        setContentView(R.layout.activity_account);
         anhXa();
+        user = SharedPrefManager.getInstance(this).getUser();
+        tvUsername.setText(user.getName());
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +55,12 @@ public class AcountActivity extends AppCompatActivity {
 //                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
         });
+        tvDangxuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPrefManager.getInstance(AcountActivity.this).logout();
+            }
+        });
     }
 
     private void anhXa() {
@@ -57,5 +69,6 @@ public class AcountActivity extends AppCompatActivity {
         tvInfo = findViewById(R.id.tvInfo);
         tvChagePass = findViewById(R.id.tvChagePass);
         tvDangxuat = findViewById(R.id.tvDangxuat);
+        tvUsername = findViewById(R.id.tvUsernameAccount);
     }
 }

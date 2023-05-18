@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -19,9 +20,12 @@ import android.widget.Toast;
 import com.example.musicapp.Adapter.BaiHatAdapter;
 import com.example.musicapp.Adapter.MusicTypeAdapter;
 import com.example.musicapp.DTO.SongDTO;
+import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.Model.MusicType;
+import com.example.musicapp.Model.User;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
+import com.example.musicapp.Service_Local.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MusicTypeAdapter musicTypeAdapter;
     private RecyclerView.Adapter adapter, adapter2;
+    private UserDTO user;
     ApiService apiService;
 
     Handler handler=new Handler();
@@ -51,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mListMusicTypes = new ArrayList<>();
+        user = SharedPrefManager.getInstance(this).getUser();
         CallApiMusicType();
         RecyclerViewListSong();
         anhXa();
         xuLyBtn();
-//        Test
     }
 
 
@@ -105,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Chuyển sang Activity mới
 //                search_input.startAnimation(animation);
-                Intent intent = new Intent(MainActivity.this, AcountActivity.class);
+                Intent intent;
+                if (user.getId() == null) {
+                    intent = new Intent(MainActivity.this, LoginActivity.class);
+                } else {
+                    intent = new Intent(MainActivity.this, AcountActivity.class);
+                }
                 startActivity(intent);
             }
         });
