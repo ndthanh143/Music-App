@@ -71,12 +71,15 @@ public class PlayMusicActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mListSongId = intent.getStringArrayListExtra("listSong");
         songId = getIntent().getExtras().getString("songId");
-
+        if(mListSongId==null) {
+            mListSongId = new ArrayList<>();
+            mListSongId.add(songId);
+        }
         LoadSongData(songId);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nextSong();
+                    nextSong();
             }
         });
         btnPrev.setOnClickListener(new View.OnClickListener() {

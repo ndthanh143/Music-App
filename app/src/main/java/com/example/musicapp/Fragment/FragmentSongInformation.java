@@ -47,7 +47,7 @@ public class FragmentSongInformation extends Fragment {
         tvSongName.setText(song.getName());
         tvSongAlbum.setText("Love song");
         tvSongType.setText(song.getType().getName());
-        tvSongProvider.setText("CUCAK");
+        tvSongProvider.setText("HarmoniQ");
         tvSongArtist.setText(song.getArtist());
     }
 

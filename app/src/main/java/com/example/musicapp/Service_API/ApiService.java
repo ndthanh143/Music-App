@@ -35,7 +35,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.7:8080/api/";
+    String BASE_URL = "http://192.168.1.156:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
