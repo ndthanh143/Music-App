@@ -13,12 +13,14 @@
         android:layout_height="60dp"
         android:background="#242633"
         android:orientation="horizontal">
+
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/btn_back_info"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/baseline_keyboard_backspace_24"
-            android:id="@+id/btn_back_info"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/baseline_keyboard_backspace_24" />
         <TextView
             android:layout_width="270dp"
             android:layout_height="match_parent"
