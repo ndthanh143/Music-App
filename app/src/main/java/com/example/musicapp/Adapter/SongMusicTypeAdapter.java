@@ -2,6 +2,7 @@ package com.example.musicapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.musicapp.Model.Song;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongMusicTypeAdapter extends RecyclerView.Adapter<SongMusicTypeAdapter.MyViewHolder>{
@@ -52,18 +54,25 @@ public class SongMusicTypeAdapter extends RecyclerView.Adapter<SongMusicTypeAdap
     }
     @Override
     public void onBindViewHolder(@NonNull SongMusicTypeAdapter.MyViewHolder holder, int position) {
-        Song Song = array.get(position);
+        Song song = array.get(position);
 
-        holder.name.setText(Song.getName());
-        holder.artist.setText(Song.getArtist());
+        holder.name.setText(song.getName());
+        holder.artist.setText(song.getArtist());
         Glide.with(context)
-                .load(Song.getImageSongUrl())
+                .load(song.getImageSongUrl())
                 .into(holder.image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-                intent.putExtra("songId", Song.getId());
+                Bundle bundle = new Bundle();
+                ArrayList<String> listSong= new ArrayList<>();
+                for(int i = 0; i < array.size(); i++) {
+                    listSong.add(array.get(i).getId());
+                }
+                bundle.putStringArrayList("listSong", listSong);
+                bundle.putString("songId", song.getId());
+                intent.putExtras(bundle);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

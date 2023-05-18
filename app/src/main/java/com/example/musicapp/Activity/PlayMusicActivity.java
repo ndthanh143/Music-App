@@ -1,5 +1,6 @@
 package com.example.musicapp.Activity;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import com.google.android.material.tabs.TabLayout;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,8 +45,7 @@ public class PlayMusicActivity extends AppCompatActivity {
     private Toolbar toolbarplaynhac;
     private TextView txtTimesong, txtTotaltimesong;
     private SeekBar sktime;
-    private ImageButton imgplay, imgrepeat, imgnext,imgrandom;
-    private ImageButton imgpre;
+    private ImageButton imgplay, btnRepeat, btnNext, btnPrev, btnRandom;
     private ViewPager viewPagerplaynhac;
     public static ViewPagerPlayListNhac adapternhac;
     private Song song;
@@ -52,11 +54,12 @@ public class PlayMusicActivity extends AppCompatActivity {
     private FragmentDiaNhac fragmentDiaNhac;
     public MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
+    private boolean isRepeat = false;
+    private boolean isShufle = false;
     private BaiHatAdapter baiHatAdapter;
     int position;
-
-    ListView lvSong;
-    public  static ArrayList<SongDTO> mangbaihat= new ArrayList<>();
+    public static ArrayList<String> mListSongId = new ArrayList<>();
+    public static String songId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -65,7 +68,99 @@ public class PlayMusicActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         anhXa();
-        LoadSongData();
+        Intent intent = getIntent();
+        mListSongId = intent.getStringArrayListExtra("listSong");
+        songId = getIntent().getExtras().getString("songId");
+        if(mListSongId==null) {
+            mListSongId = new ArrayList<>();
+            mListSongId.add(songId);
+        }
+        LoadSongData(songId);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    nextSong();
+            }
+        });
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                previousSong();
+            }
+        });
+        btnRepeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isRepeat = !isRepeat;
+                if(isRepeat) {
+                    btnRepeat.setBackground(getDrawable(R.drawable.ic_baseline_repeat_active_24));
+                } else {
+                    btnRepeat.setBackground(getDrawable(R.drawable.ic_baseline_repeat_24));
+                }
+            }
+        });
+        btnRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isShufle = !isShufle;
+                if(isShufle) {
+                    btnRandom.setBackground(getDrawable(R.drawable.ic_baseline_shuffle_active_24));
+                } else {
+                    btnRandom.setBackground(getDrawable(R.drawable.ic_baseline_shuffle_24));
+                }
+            }
+        });
+    }
+
+    private void previousSong() {
+        if(isShufle) {
+            Random random = new Random();
+            int randomNumber = random.nextInt(mListSongId.size() - 1) + 0;
+            while(mListSongId.get(randomNumber).equals(songId) ) {
+                randomNumber = random.nextInt(mListSongId.size() - 1) + 0;
+            }
+            songId = mListSongId.get(randomNumber);
+            LoadSongData(songId);
+        } else {
+            for (int i = 0; i < mListSongId.size(); i++) {
+                String id = mListSongId.get(i);
+                if (id.equals(songId)) {
+                    if(i==0) {
+                        songId = mListSongId.get(mListSongId.size()-1);
+                    } else {
+                        songId = mListSongId.get(i-1);
+                    }
+                    LoadSongData(songId);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void nextSong() {
+        if(isShufle) {
+            Random random = new Random();
+            int randomNumber = random.nextInt(mListSongId.size() - 1) + 0;
+            while(mListSongId.get(randomNumber).equals(songId) ) {
+                randomNumber = random.nextInt(mListSongId.size() - 1) + 0;
+            }
+            songId = mListSongId.get(randomNumber);
+            LoadSongData(songId);
+        } else {
+            for (int i = 0; i < mListSongId.size(); i++) {
+                String id = mListSongId.get(i);
+                if (id.equals(songId)) {
+                    if(i==mListSongId.size() - 1) {
+                        songId = mListSongId.get(0);
+                    } else {
+                        songId = mListSongId.get(i+1);
+                    }
+                    LoadSongData(songId);
+                    break;
+                }
+            }
+        }
+
     }
 
     private void anhXa() {
@@ -77,11 +172,12 @@ public class PlayMusicActivity extends AppCompatActivity {
         txtTimesong = findViewById(R.id.textviewtimesong);
         txtTotaltimesong = findViewById(R.id.textviewtotaltimsong);
         sktime = findViewById(R.id.seekbarsong);
-        imgrepeat = findViewById(R.id.imagebuttonrepeat);
-        imgnext = findViewById(R.id.imagebuttonnext);
-        imgrandom = findViewById(R.id.imagebuttonsuffle);
-        imgpre = findViewById(R.id.imagebuttonpreview);
+        btnRepeat = findViewById(R.id.imagebuttonrepeat);
+        btnNext = findViewById(R.id.imagebuttonnext);
+        btnRandom = findViewById(R.id.imagebuttonsuffle);
+        btnPrev = findViewById(R.id.imagebuttonpreview);
         imgplay = findViewById(R.id.imagebuttonplay);
+
 
 //        Init fragment
         adapternhac = new ViewPagerPlayListNhac(getSupportFragmentManager());
@@ -96,16 +192,13 @@ public class PlayMusicActivity extends AppCompatActivity {
         viewPagerplaynhac.setOffscreenPageLimit(3);
     }
 
-    private void LoadSongData() {
-        String songId =getIntent().getStringExtra("songId");
+    private void LoadSongData(String songId) {
+        System.out.println("songid: " +songId);
         ApiService.apiService.getSongId(songId).enqueue(new Callback<Song>() {
             @Override
             public void onResponse(Call<Song> call, Response<Song> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     song = response.body();
-                    SongDTO newsong=new SongDTO(song.getId(),song.getName(), song.getArtist(), song.getSongUrl(), song.getImageSongUrl(), song.getLyrics());
-                    mangbaihat.add(newsong);
-//                    position=0;
                     fragmentDiaNhac.onPause();
                     String url=song.getSongUrl();
                     eventClick(url);
@@ -113,13 +206,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                     fragmentDiaNhac.Playnhac(song.getImageSongUrl());
                     fragmentSongInformation.LoadInformation(song);
                     fragmentLyricsNhac.LoadLyrics(song.getLyrics());
-                    baiHatAdapter=new BaiHatAdapter(PlayMusicActivity.this,mangbaihat);
-//                    AddSong();
-//                    mangbaihat.clear();
-//                    mangbaihat.add(song);
-//                    adapternhac.notifyDataSetChanged();
-//                    fragmentDiaNhac.Playnhac(mangbaihat.get(0).getImageSongUrl());
-//                    getSupportActionBar().setTitle(mangbaihat.get(0).getName());
+                    khoiTaoMedia(song.getSongUrl());
                 }
             }
 
@@ -132,7 +219,6 @@ public class PlayMusicActivity extends AppCompatActivity {
     }
     private void eventClick(String url)
     {
-        khoiTaoMedia(url);
         imgplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,16 +261,15 @@ public class PlayMusicActivity extends AppCompatActivity {
             sktime.setProgress(mediaPlayer.getCurrentPosition());
             //Kiểm tra bài hát nếu kết thúc dừng lại
             mediaPlayer.setOnCompletionListener((mp)->{
-                position++;
-                if(position>=mangbaihat.size()){
-                    position=0;
+                if (isRepeat) {
+                    mediaPlayer.seekTo(0);
+                    mediaPlayer.start();
+                } else {
+                    nextSong();
+                    SetTimeTotal();
+                    Updatetime();
                 }
-                if(mediaPlayer.isPlaying()){mediaPlayer.stop();}
-                khoiTaoMedia(mangbaihat.get(position).getSongUrl());
-                mediaPlayer.start();
-                imgplay.setImageResource(R.drawable.baseline_pause_circle_outline_24);
-                SetTimeTotal();
-                Updatetime();
+
             });
             handler.postDelayed(this::Updatetime,500);
         },100);
@@ -218,8 +303,9 @@ public class PlayMusicActivity extends AppCompatActivity {
                 }
             });
         } else {
-            System.out.println("Media playing");
+            mediaPlayer.stop();
             mediaPlayer = new MediaPlayer();
+            System.out.println("Media playing");
             try {
                 mediaPlayer.setDataSource(url);
             } catch (IOException e) {

@@ -59,7 +59,8 @@ public class AddSongToPlaylistActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(AddSongToPlaylistActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddSongToPlaylistActivity.this, PlaylistAcitivity.class);
+                intent.putExtra("playlistId", playlistId);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }

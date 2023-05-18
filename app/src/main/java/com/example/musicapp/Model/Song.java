@@ -1,19 +1,21 @@
 package com.example.musicapp.Model;
 
-public class Song {
-    private String id;
+import java.io.Serializable;
 
-    private String name;
+public class Song implements Serializable {
+        private String id;
 
-    private String artist;
+        private String name;
 
-    private String songUrl;
+        private String artist;
 
-    private String imageSongUrl;
+        private String songUrl;
 
-    private String lyrics;
+        private String imageSongUrl;
 
-    private MusicType type;
+        private String lyrics;
+
+        private MusicType type;
     public Song(String id, String name, String artist, String songUrl, String imageSongUrl, String lyrics, MusicType type) {
         this.id = id;
         this.name = name;

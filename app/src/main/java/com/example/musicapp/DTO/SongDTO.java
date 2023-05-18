@@ -1,5 +1,7 @@
 package com.example.musicapp.DTO;
 
+import com.example.musicapp.Model.MusicType;
+
 public class SongDTO {
     private String id;
 
@@ -13,14 +15,7 @@ public class SongDTO {
 
     private String lyrics;
 
-    public SongDTO(String id, String name, String artist, String songUrl, String imageSongUrl, String lyrics) {
-        this.id = id;
-        this.name = name;
-        this.artist = artist;
-        this.songUrl = songUrl;
-        this.imageSongUrl = imageSongUrl;
-        this.lyrics = lyrics;
-    }
+    private MusicType type;
 
     public String getId() {
         return id;
@@ -68,5 +63,13 @@ public class SongDTO {
 
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
+    }
+
+    public MusicType getType() {
+        return type;
+    }
+
+    public void setType(MusicType type) {
+        this.type = type;
     }
 }
