@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +21,15 @@ import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapter.MyViewHolder> {
     Context context;
     List<Song> array;
-    String playlistId;
 
-    public PlaylistSongAdapter(Context context, List<Song> array, String playlistId) {
+    public PlaylistSongAdapter(Context context, List<Song> array ) {
         this.context = context;
         this.array = array;
     }
@@ -67,8 +69,14 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-//                intent.putParcelableArrayListExtra("songList", array);
-                intent.putExtra("songId", song.getId());
+                Bundle bundle = new Bundle();
+                ArrayList<String> listSong= new ArrayList<>();
+                for(int i = 0; i < array.size(); i++) {
+                    listSong.add(array.get(i).getId());
+                }
+                bundle.putStringArrayList("listSong", listSong);
+                bundle.putString("songId", song.getId());
+                intent.putExtras(bundle);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

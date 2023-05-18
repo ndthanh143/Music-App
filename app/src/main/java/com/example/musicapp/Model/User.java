@@ -1,6 +1,6 @@
 package com.example.musicapp.Model;
 
-import com.example.musicapp.Utils.ERole;
+import com.example.musicapp.utils.ERole;
 
 public class User {
     private String id;
@@ -16,6 +16,16 @@ public class User {
     private ERole role;
 
     private boolean trangThai;
+
+    public User(String id, String name, String phone, String email, String password, ERole role, boolean trangThai) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.trangThai = trangThai;
+    }
 
     public String getId() {
         return id;

@@ -67,10 +67,8 @@ public class PlaylistAcitivity extends AppCompatActivity {
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Chuyển sang Activity mới
                 Intent intent = new Intent(PlaylistAcitivity.this, MainActivity.class);
                 startActivity(intent);
-//                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
         });
         btnRandomPlay.setOnClickListener(new View.OnClickListener() {
@@ -79,12 +77,18 @@ public class PlaylistAcitivity extends AppCompatActivity {
                 Random random = new Random();
 
                 // Tạo số ngẫu nhiên trong khoảng từ 0 đến 100
-                int randomNumber = random.nextInt(playlist.getListSongs().size());
-                String id=playlist.getListSongs().get(randomNumber).getId();
-                System.out.println("Mã ID random la........"+id+"....."+playlist.getListSongs().get(randomNumber).getName());
-                Intent intent1=new Intent(PlaylistAcitivity.this,PlayMusicActivity.class);
-                intent1.putExtra("songId", id);
-                startActivity(intent1);
+                int randomNumber = random.nextInt(playlist.getListSongs().size()-1) + 0;
+                String songId = playlist.getListSongs().get(randomNumber).getId();
+                Intent intent = new Intent(PlaylistAcitivity.this, PlayMusicActivity.class);
+                Bundle bundle = new Bundle();
+                ArrayList<String> listSong= new ArrayList<>();
+                for(int i = 0; i < playlist.getListSongs().size(); i++) {
+                    listSong.add(playlist.getListSongs().get(i).getId());
+                }
+                bundle.putStringArrayList("listSong", listSong);
+                bundle.putString("songId", songId);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -98,28 +102,36 @@ public class PlaylistAcitivity extends AppCompatActivity {
 
 
     private void CallApiGetPlaylist(String playlistId) {
+        System.out.println(playlistId);
         ApiService.apiService.getPlaylist(playlistId).enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
                 playlist = response.body();
                 tvPlaylistName.setText(playlist.getName());
-                tvPlaylistSize.setText(playlist.getListSongs().size() + " Bài hát");
-                Glide.with(PlaylistAcitivity.this)
-                        .load(playlist.getThumbnail())
-                        .into(ivPlaylisThumbnail);
-                if(playlist.getListSongs().size() == 0) {
+                if(playlist.getListSongs() != null) {
+                    tvPlaylistSize.setText(playlist.getListSongs().size() + " Bài hát");
+                    Glide.with(PlaylistAcitivity.this)
+                            .load(playlist.getThumbnail())
+                            .into(ivPlaylisThumbnail);
+                    if(playlist.getListSongs().size() == 0) {
+                        layoutHasSongInPlaylist.setVisibility(View.GONE);
+                        layoutNoSongInPlaylist.setVisibility(View.VISIBLE);
+                    } else {
+                        layoutNoSongInPlaylist.setVisibility(View.GONE);
+                        layoutHasSongInPlaylist.setVisibility(View.VISIBLE);
+                        playlistSongAdapter = new PlaylistSongAdapter(PlaylistAcitivity.this, playlist.getListSongs());
+                        rcListSong.setHasFixedSize(true);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
+                        rcListSong.setLayoutManager(layoutManager);
+                        rcListSong.setAdapter(playlistSongAdapter);
+                        playlistSongAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    tvPlaylistSize.setText("");
                     layoutHasSongInPlaylist.setVisibility(View.GONE);
                     layoutNoSongInPlaylist.setVisibility(View.VISIBLE);
-                } else {
-                    layoutNoSongInPlaylist.setVisibility(View.GONE);
-                    layoutHasSongInPlaylist.setVisibility(View.VISIBLE);
-                    playlistSongAdapter = new PlaylistSongAdapter(PlaylistAcitivity.this, playlist.getListSongs(), playlist.getId());
-                    rcListSong.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
-                    rcListSong.setLayoutManager(layoutManager);
-                    rcListSong.setAdapter(playlistSongAdapter);
-                    playlistSongAdapter.notifyDataSetChanged();
                 }
+
 
             }
 
