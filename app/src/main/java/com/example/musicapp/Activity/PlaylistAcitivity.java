@@ -110,7 +110,8 @@ public class PlaylistAcitivity extends AppCompatActivity {
                 if(playlist.getListSongs().size() == 0) {
                     layoutHasSongInPlaylist.setVisibility(View.GONE);
                     layoutNoSongInPlaylist.setVisibility(View.VISIBLE);
-                } else {
+                } else
+                {
                     layoutNoSongInPlaylist.setVisibility(View.GONE);
                     layoutHasSongInPlaylist.setVisibility(View.VISIBLE);
                     playlistSongAdapter = new PlaylistSongAdapter(PlaylistAcitivity.this, playlist.getListSongs(), playlist.getId());

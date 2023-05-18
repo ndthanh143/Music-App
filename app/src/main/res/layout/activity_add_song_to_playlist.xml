@@ -7,16 +7,38 @@
     android:background="#161622"
     tools:context=".Activity.AddSongToPlaylistActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#242633"
-
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingBottom="20dp"
         tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+            <ImageButton
+                android:id="@+id/btnCloseActivityAddSongToPlaylist"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/ic_baseline_close_24"
+                android:layout_gravity="center_vertical"/>
 
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thêm bài hát"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
         <EditText
             android:id="@+id/seachView1"
             android:layout_width="match_parent"
@@ -86,27 +108,7 @@
                 android:textColor="@color/white" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/btnCloseActivityAddSongToPlaylist"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/ic_baseline_close_24" />
-
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Thêm bài hát"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/btnCloseActivityAddSongToPlaylist"
-            app:layout_constraintTop_toTopOf="@+id/btnCloseActivityAddSongToPlaylist" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+          </LinearLayout>
 
     <ListView
         android:id="@+id/rcListSong"
