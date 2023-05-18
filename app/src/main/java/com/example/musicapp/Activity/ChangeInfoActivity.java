@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapp.DTO.UserSignupDTO;
+import com.example.musicapp.Model.User;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
 import com.example.musicapp.Service_Local.SharedPrefManager;
@@ -53,13 +54,11 @@ public class ChangeInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void UpdateNameAccount(String userId,UserSignupDTO UserSignupDTO) {
-        ApiService.apiService.updateName(userId,UserSignupDTO).enqueue(new Callback<UserSignupDTO>() {
+    private void UpdateNameAccount(String userId, UserSignupDTO UserSignupDTO) {
+        ApiService.apiService.updateName(userId,UserSignupDTO).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserSignupDTO> call, Response<UserSignupDTO> response) {
-//                UserSignupDTO UserSignupDTO=response.body();
+            public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()) {
-                    System.out.println("Ten thay doi la " + UserSignupDTO.getName());
                     Toast.makeText(ChangeInfoActivity.this, "Cập nhật tên thành công", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -68,7 +67,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserSignupDTO> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(ChangeInfoActivity.this, "Cập nhật tên không thành công" , Toast.LENGTH_SHORT).show();
 
             }
