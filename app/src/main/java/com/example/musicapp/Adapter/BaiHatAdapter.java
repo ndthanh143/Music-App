@@ -2,6 +2,7 @@ package com.example.musicapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Model.Song;
 import com.example.musicapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHolder> {
@@ -63,7 +65,15 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
 //                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
                 System.out.println("---Nhan vao dc item bai hat---------");
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-                intent.putExtra("songId", song.getId());
+//                intent.putExtra("songId", song.getId());
+                Bundle bundle = new Bundle();
+                ArrayList<String> listSong= new ArrayList<>();
+                for(int i = 0; i < array.size(); i++) {
+                    listSong.add(array.get(i).getId());
+                }
+                bundle.putStringArrayList("listSong", listSong);
+                bundle.putString("songId", song.getId());
+                intent.putExtras(bundle);
                 holder.itemView.getContext().startActivity(intent);
             }
         });
