@@ -11,11 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapp.R;
+import com.example.musicapp.Service_Local.SharedPrefManager;
 
 public class AcountActivity extends AppCompatActivity {
 
     ImageButton ivback,ivSetting;
-    TextView tvInfo,tvChagePass,tvDangxuat;
+    TextView tvInfo,tvChagePass,tvDangxuat,tvUsernameAccount;
     ImageView ivAddMore,ivFavourite,ivExplore,ivAccount,ivHome;
 
     @Override
@@ -23,6 +24,7 @@ public class AcountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         anhXa();
+        tvUsernameAccount.setText(SharedPrefManager.getInstance(this).getUser().getName());
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,10 +37,8 @@ public class AcountActivity extends AppCompatActivity {
         tvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id="6463c2dfd455b9497b4c746c";
                 // Chuyển sang Activity mới
                 Intent intent = new Intent(AcountActivity.this, InforPersonActivity.class);
-                intent.putExtra("userId", id);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
@@ -86,6 +86,12 @@ public class AcountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        tvDangxuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPrefManager.getInstance(AcountActivity.this).logout();
+            }
+        });
     }
 
     private void anhXa() {
@@ -99,5 +105,7 @@ public class AcountActivity extends AppCompatActivity {
         ivAddMore = findViewById(R.id.ivAddMore);
         ivFavourite = findViewById(R.id.ivFavourite);
         ivHome = findViewById(R.id.ivHome);
+        tvUsernameAccount = findViewById(R.id.tvUsernameAccount);
+        tvDangxuat = findViewById(R.id.tvDangxuat);
     }
 }
