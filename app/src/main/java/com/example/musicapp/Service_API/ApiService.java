@@ -35,7 +35,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.9:8080/api/";
+    String BASE_URL = "http://192.168.1.7:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -54,7 +54,7 @@ public interface ApiService {
     @GET("song/all")
     Call<List<SongDTO>> getListMusicSong();
     @GET("song/random")
-    Call<List<Song>> getListRandomSong();
+    Call<List<SongDTO>> getListRandomSong();
 
     @GET("song/all")
     Call<List<Song>> getAllSong();
@@ -69,6 +69,8 @@ public interface ApiService {
     //    Playlist
     @GET("playlist/{id}")
     Call<Playlist> getPlaylist(@Path("id") String playlistId);
+    @GET("playlist/all")
+    Call<List<Playlist>> getAllPlaylist();
     @POST("playlist")
     Call<Playlist> createPlaylist(@Body PlaylistDTO playlistDTO);
     @PUT("playlist/{id}/add-song")

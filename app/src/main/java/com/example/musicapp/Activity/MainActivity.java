@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler=new Handler();
     TextView search_input;
-    ImageView ivAddMore,ivFavourite,ivExplore,ivAccount;
+    ImageView ivAddMore,ivFavourite,ivExplore,ivAccount,ivHome;
 
 
     @Override
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         ivAccount = findViewById(R.id.ivAccount);
         ivAddMore = findViewById(R.id.ivAddMore);
         ivFavourite = findViewById(R.id.ivFavourite);
-
+        ivHome = findViewById(R.id.ivHome);
     }
     private void xuLyBtn() {
         search_input.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(MainActivity.this, PlaylistAcitivity.class);
+                Intent intent = new Intent(MainActivity.this, ListPlaylistActivity.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
             }
@@ -109,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ivHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecyclerViewListSong();
+            }
+        });
 
     }
 
@@ -117,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         rcSong = findViewById(R.id.rc_recent_song);
         rcSong.setLayoutManager(linearLayoutManager);
         //Get API
-        ApiService.apiService.getListMusicSong().enqueue(new Callback<List<SongDTO>>() {
+        ApiService.apiService.getListRandomSong().enqueue(new Callback<List<SongDTO>>() {
             @Override
             public void onResponse(Call<List<SongDTO>> call, Response<List<SongDTO>> response) {
                 if(response.isSuccessful()){

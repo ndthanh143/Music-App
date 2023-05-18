@@ -36,7 +36,7 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 android:layout_marginEnd="25dp"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="30dp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -63,6 +63,9 @@
             android:name=".Activity.ChangePassActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.ListPlaylistActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.MusicSearchActivity"
             android:exported="true">
 

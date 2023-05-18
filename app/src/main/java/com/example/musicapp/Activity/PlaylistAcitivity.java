@@ -50,7 +50,7 @@ public class PlaylistAcitivity extends AppCompatActivity {
         Intent intent = getIntent();
         String playlistId = intent.getStringExtra("playlistId");
 
-        CallApiGetPlaylist("64650aaf55d2e4242140219d");
+        CallApiGetPlaylist(playlistId);
 
         btnAddSong.setOnClickListener(new View.OnClickListener() {
             @Override
