@@ -41,7 +41,7 @@ public class ChangePassActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!edtNewPass.equals(edtNewConfirmPass)) {
+                if(!edtNewPass.getText().toString().equals(edtNewConfirmPass.getText().toString())) {
                     Toast.makeText(ChangePassActivity.this, "Mật khẩu nhập lại không trùng khớp", Toast.LENGTH_SHORT).show();
                 } else {
                     CallApiUpdatePassword(edtOldPass.getText().toString(), edtNewPass.getText().toString());
