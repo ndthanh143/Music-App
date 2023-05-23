@@ -24,9 +24,9 @@ import java.util.List;
 
 public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHolder> {
     Context context;
-    List<SongDTO> array;
+    List<Song> array;
 
-    public BaiHatAdapter(Context context, List<SongDTO> array) {
+    public BaiHatAdapter(Context context, List<Song> array) {
         this.context = context;
         this.array = array;
     }
@@ -53,7 +53,7 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
     }
     @Override
     public void onBindViewHolder(@NonNull BaiHatAdapter.MyViewHolder holder, int position) {
-        SongDTO song =array.get(position);
+        Song song =array.get(position);
         holder.tenbaihat.setText(song.getName());
         holder.tencasi.setText(song.getArtist());
         Glide.with(context)
@@ -62,10 +62,7 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                    Toast.makeText(context,"Bạn đã chọn "+ holder.tenbaihat.getText().toString(), Toast.LENGTH_SHORT).show();
-                System.out.println("---Nhan vao dc item bai hat---------");
                 Intent intent = new Intent(context, PlayMusicActivity.class);
-//                intent.putExtra("songId", song.getId());
                 Bundle bundle = new Bundle();
                 ArrayList<String> listSong= new ArrayList<>();
                 for(int i = 0; i < array.size(); i++) {
@@ -83,7 +80,7 @@ public class BaiHatAdapter extends RecyclerView.Adapter<BaiHatAdapter.MyViewHold
     public int getItemCount() {
         return array == null ? 0 : array.size();
     }
-    public void setData(List<SongDTO> newList) {
+    public void setData(List<Song> newList) {
         array.clear();
         array.addAll(newList);
         notifyDataSetChanged();

@@ -40,10 +40,11 @@
         android:layout_below="@+id/layoutsearch">
 
         <ImageView
+            android:id="@+id/ivAvatarInforPerson"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/user"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:background="@drawable/user" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

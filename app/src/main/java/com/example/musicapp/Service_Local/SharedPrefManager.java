@@ -12,6 +12,7 @@ public class SharedPrefManager {  private static final String SHARED_PREF_NAME =
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_EMAIL = "keyemail";
     private static final String KEY_PHONE = "keyphone";
+    private static final String KEY_AVATAR = "keyavatar";
     private static SharedPrefManager mInstance;
     private static Context ctx;
 
@@ -33,6 +34,7 @@ public class SharedPrefManager {  private static final String SHARED_PREF_NAME =
         editor.putString(KEY_USERNAME, user.getName());
         editor.putString(KEY_EMAIL, user.getEmail());
         editor.putString(KEY_PHONE, user.getPhone());
+        editor.putString(KEY_AVATAR, user.getAvatar());
         editor.apply();
     }
 
@@ -46,8 +48,9 @@ public class SharedPrefManager {  private static final String SHARED_PREF_NAME =
         return new UserDTO(
                 sharedPreferences.getString(KEY_ID, null),
                 sharedPreferences.getString(KEY_USERNAME, null),
+                sharedPreferences.getString(KEY_PHONE, null),
                 sharedPreferences.getString(KEY_EMAIL, null),
-                sharedPreferences.getString(KEY_PHONE, null)
+                sharedPreferences.getString(KEY_AVATAR, null)
                 );
     }
     public void logout(){

@@ -24,6 +24,7 @@ import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
+import com.example.musicapp.Service_Local.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,21 +38,17 @@ public class ListPlaylistActivity extends AppCompatActivity {
 
     private RecyclerView rcPlaylist;
 
-    private RecyclerView.Adapter adapter, adapter2;
-    ApiService apiService;
     private ImageButton ivbackplaylist1;
     private Button btnaddPlaylist;
-    Playlist playlist;
+    private String userId;
     LinearLayout layoutHasPlaylist;
     ConstraintLayout layoutNoPlaylist;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_playlist);
-        ivbackplaylist1 = findViewById(R.id.ivbackplaylist1);
-        btnaddPlaylist =findViewById(R.id.btnaddPlaylist);
-        layoutNoPlaylist = findViewById(R.id.layoutNoPlaylist);
-        layoutHasPlaylist = findViewById(R.id.LayoutHasPlaylist);
+        anhXa();
+        userId = SharedPrefManager.getInstance(this).getUser().getId();
         ivbackplaylist1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,33 +66,29 @@ public class ListPlaylistActivity extends AppCompatActivity {
         CallApiGetAllPlaylist();
     }
 
+    private void anhXa() {
+        ivbackplaylist1 = findViewById(R.id.ivbackplaylist1);
+        btnaddPlaylist =findViewById(R.id.btnaddPlaylist);
+        layoutNoPlaylist = findViewById(R.id.layoutNoPlaylist);
+        layoutHasPlaylist = findViewById(R.id.LayoutHasPlaylist);
+
+        rcPlaylist = findViewById(R.id.rc_list_playlist);
+
+    }
+
     private void CallApiGetAllPlaylist() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rcPlaylist = findViewById(R.id.rc_list_playlist);
         rcPlaylist.setLayoutManager(linearLayoutManager);
-        ApiService.apiService.getAllPlaylist().enqueue(new Callback<List<Playlist>>() {
+        ApiService.apiService.getPlaylistOfUser(userId).enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
-
-//                rcPlaylist.setHasFixedSize(true);
-//                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
-//                rcPlaylist.setLayoutManager(layoutManager);
                 if(response.isSuccessful()) {
                     mListPlaylist = response.body();
-//                    int i =playlist.getListSongs().size();
-////                    int i=0;
-//                    if(playlist.getListSongs().size() == 0) {
-//                        layoutHasPlaylist.setVisibility(View.GONE);
-//                        layoutNoPlaylist.setVisibility(View.VISIBLE);
-//                    }
-//                    else
-                    {
-                        layoutHasPlaylist.setVisibility(View.VISIBLE);
-                        layoutNoPlaylist.setVisibility(View.GONE);
+                    layoutHasPlaylist.setVisibility(View.VISIBLE);
+                    layoutNoPlaylist.setVisibility(View.GONE);
                     ListPlaylistAdapter playlistAdapter = new ListPlaylistAdapter(ListPlaylistActivity.this,mListPlaylist);
                     rcPlaylist.setAdapter(playlistAdapter);
                     playlistAdapter.notifyDataSetChanged();
-                    System.out.println("Get dc playlist");}
                 }else{
                     System.out.println("Khong get duoc playlist");
                 }

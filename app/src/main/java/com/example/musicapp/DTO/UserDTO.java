@@ -9,14 +9,17 @@ public class UserDTO {
 
     private String email;
 
+    private String avatar;
+
     public UserDTO() {
     }
 
-    public UserDTO(String id, String name, String phone, String email) {
+    public UserDTO(String id, String name, String phone, String email, String avatar) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.avatar = avatar;
     }
 
     public String getId() {
@@ -49,5 +52,13 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
