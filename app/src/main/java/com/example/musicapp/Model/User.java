@@ -13,16 +13,20 @@ public class User {
 
     private String password;
 
+    private String avatar;
+
     private ERole role;
 
     private boolean trangThai;
 
-    public User(String id, String name, String phone, String email, String password, ERole role, boolean trangThai) {
+
+    public User(String id, String name, String phone, String email, String password, String avatar, ERole role, boolean trangThai) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.avatar = avatar;
         this.role = role;
         this.trangThai = trangThai;
     }
@@ -80,5 +84,13 @@ public class User {
 
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

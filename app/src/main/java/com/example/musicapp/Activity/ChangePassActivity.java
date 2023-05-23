@@ -34,7 +34,7 @@ public class ChangePassActivity extends AppCompatActivity {
         btn_back_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChangePassActivity.this, AcountActivity.class);
+                Intent intent = new Intent(ChangePassActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +56,7 @@ public class ChangePassActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Toast.makeText(ChangePassActivity.this, "Password changed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ChangePassActivity.this, AcountActivity.class);
+                Intent intent = new Intent(ChangePassActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
 

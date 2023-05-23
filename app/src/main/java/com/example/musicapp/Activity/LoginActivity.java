@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             dto.setId(user.getId());
                             dto.setName(user.getName());
                             dto.setPhone(user.getPhone());
+                            dto.setAvatar(user.getAvatar());
                             System.out.println("Dang nhap vao duoc");
 
                             SharedPrefManager.getInstance(getApplicationContext()).userLogin(dto);

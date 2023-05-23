@@ -45,13 +45,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.Upload_music"
-            android:exported="false" />
-        <activity
             android:name=".Activity.SongMusicTypeActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AcountActivity"
+            android:name=".Activity.AccountActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.InforPersonActivity"

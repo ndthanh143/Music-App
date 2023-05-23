@@ -39,7 +39,7 @@ public class ChangeInfoActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChangeInfoActivity.this, AcountActivity.class);
+                Intent intent = new Intent(ChangeInfoActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
         });

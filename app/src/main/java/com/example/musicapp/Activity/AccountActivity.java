@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_Local.SharedPrefManager;
 
-public class AcountActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity {
 
     ImageButton ivback,ivSetting;
     TextView tvInfo,tvChagePass,tvDangxuat,tvUsernameAccount;
@@ -29,7 +30,7 @@ public class AcountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(AcountActivity.this, MainActivity.class);
+                Intent intent = new Intent(AccountActivity.this, MainActivity.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
@@ -38,7 +39,7 @@ public class AcountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(AcountActivity.this, InforPersonActivity.class);
+                Intent intent = new Intent(AccountActivity.this, InforPersonActivity.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
@@ -47,7 +48,7 @@ public class AcountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(AcountActivity.this, ChangePassActivity.class);
+                Intent intent = new Intent(AccountActivity.this, ChangePassActivity.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_right, R.anim.slide_to_left);
             }
@@ -55,17 +56,20 @@ public class AcountActivity extends AppCompatActivity {
         ivAddMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
-                // Chuyển sang Activity mới
-                Intent intent = new Intent(AcountActivity.this, CreatePlaylistActivity.class);
-                startActivity(intent);
+                if (SharedPrefManager.getInstance(AccountActivity.this).getUser().getId() == null) {
+                    Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(AccountActivity.this, CreatePlaylistActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         ivExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Chuyển sang Activity mới
-                Intent intent = new Intent(AcountActivity.this, ListPlaylistActivity.class);
+                Intent intent = new Intent(AccountActivity.this, ListPlaylistActivity.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
             }
@@ -82,14 +86,15 @@ public class AcountActivity extends AppCompatActivity {
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AcountActivity.this, MainActivity.class);
+                Intent intent = new Intent(AccountActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
         tvDangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPrefManager.getInstance(AcountActivity.this).logout();
+                SharedPrefManager.getInstance(AccountActivity.this).logout();
+                Toast.makeText(AccountActivity.this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
