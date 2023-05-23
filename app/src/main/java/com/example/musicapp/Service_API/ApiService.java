@@ -1,11 +1,9 @@
 package com.example.musicapp.Service_API;
 
-import com.example.musicapp.DTO.CommentDTO;
 import com.example.musicapp.DTO.PlaylistDTO;
 import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.DTO.UserSignupDTO;
-import com.example.musicapp.Model.Comment;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.Model.Song;
@@ -22,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -38,7 +37,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.7:8080/api/";
+    String BASE_URL = "http://192.168.82.254:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -55,9 +54,7 @@ public interface ApiService {
     @GET("music-type/all")
     Call<List<MusicType>> getListMusicTypes();
     @GET("song/all")
-    Call<List<SongDTO>> getListMusicSong();
-    @GET("song/random")
-    Call<List<SongDTO>> getListRandomSong();
+    Call<List<Song>> getListMusicSong();
 
     @GET("song/all")
     Call<List<Song>> getAllSong();
@@ -74,10 +71,18 @@ public interface ApiService {
     Call<Playlist> getPlaylist(@Path("id") String playlistId);
     @GET("playlist/all")
     Call<List<Playlist>> getAllPlaylist();
+    @GET("playlist/all/{userId}")
+    Call<List<Playlist>> getPlaylistOfUser(@Path("userId") String userId);
     @POST("playlist")
-    Call<Playlist> createPlaylist(@Body PlaylistDTO playlistDTO);
+    Call<Playlist> createPlaylist(@Body PlaylistDTO playlistDTO, @Query("userId") String userId);
     @PUT("playlist/{id}/add-song")
     Call<Playlist> addSongToPlaylist(@Path("id") String playlistId, @Body Song song);
+    @PUT("playlist/{id}/remove-song")
+    Call<Playlist> removeSongFromPlaylist(@Path("id") String playlistId, @Body Song song);
+    @PUT("playlist/{id}")
+    Call<Playlist> update(@Path("id") String playlistId, PlaylistDTO playlistDTO);
+    @DELETE("playlist/{id}")
+    Call<Playlist> deletePlaylist(@Path("id") String id);
 
     // Authentication
     @POST("auth/signup")
@@ -94,13 +99,4 @@ public interface ApiService {
 
     @PUT("user/update-password/{id}")
     Call<User> changePassword(@Path("id") String userId, @Query("oldPassword") String oldPass, @Query("newPassword") String newPass);
-
-    //Comment
-    @GET("comment/{songId}/all")
-    Call<List<Comment>> listCommentOfSong(@Path("songId") String songId);
-    @POST("comment")
-    Call<Comment> CreateComment(@Body CommentDTO commentDTO);
-    @PUT("comment/{id}")
-    Call<Comment> UpdateComment(@Path("id") String playlistId, @Query("comment") String comment);
-
 }

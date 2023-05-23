@@ -22,11 +22,12 @@
             android:layout_height="match_parent"
             android:padding="3dp"
             tools:context=".Activity.MainActivity">
+
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:contentDescription="TODO"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,22 +49,13 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
-            <ImageButton
-                android:id="@+id/btnMenu"
-                android:layout_width="5dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="40dp"
-                android:contentDescription="TODO"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/menu" />
-
             <TextView
                 android:id="@+id/search_input"
-                android:layout_width="327dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="96dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/search_background"
                 android:drawableEnd="@drawable/search_icon"
                 android:ems="10"
@@ -101,7 +93,7 @@
                     android:id="@+id/rc_music_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:foregroundGravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +129,7 @@
                     android:id="@+id/rc_recent_song"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:foregroundGravity="center"
                     android:nestedScrollingEnabled="false"

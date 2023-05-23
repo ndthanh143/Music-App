@@ -7,16 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.savedstate.SavedStateRegistry;
 
 import com.bumptech.glide.Glide;
+import com.example.musicapp.Activity.ListPlaylistActivity;
 import com.example.musicapp.Activity.PlaylistAcitivity;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.R;
+import com.example.musicapp.Service_API.ApiService;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListPlaylistAdapter extends RecyclerView.Adapter<ListPlaylistAdapter.MyViewHolder> {
     Context context;
@@ -40,17 +49,17 @@ public class ListPlaylistAdapter extends RecyclerView.Adapter<ListPlaylistAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView images;
         public TextView textviewTenPlaylist,textviewSizePlaylist;
+        public ImageView btnDeletePlaylist;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             images =itemView.findViewById(R.id.imageViewPlaylist);
             textviewTenPlaylist =itemView.findViewById(R.id.textviewTenPlaylist);
             textviewSizePlaylist =itemView.findViewById(R.id.textviewSizePlaylist);
-
-//            tentheloai = (TextView) itemView.findViewById(R.id.tvNameTheloai);
-
+            btnDeletePlaylist = itemView.findViewById(R.id.btnDeletePlaylist);
         }
     }
+
     @Override
     public void onBindViewHolder(@NonNull ListPlaylistAdapter.MyViewHolder holder, int position) {
         Playlist Playlist =array.get(position);
@@ -59,6 +68,29 @@ public class ListPlaylistAdapter extends RecyclerView.Adapter<ListPlaylistAdapte
         Glide.with(context)
                 .load(Playlist.getThumbnail())
                 .into(holder.images);
+        holder.btnDeletePlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiService.apiService.deletePlaylist(Playlist.getId()).enqueue(new Callback<com.example.musicapp.Model.Playlist>() {
+                    @Override
+                    public void onResponse(Call<com.example.musicapp.Model.Playlist> call, Response<com.example.musicapp.Model.Playlist> response) {
+                        Toast.makeText(context, "Đã xoá playlist", Toast.LENGTH_SHORT).show();
+                        List<Playlist> newList = new ArrayList<>();
+                        for(int i = 0 ; i < array.size(); i++) {
+                            if(array.get(i).getId().equals(response.body().getId())) {
+                                array.remove(i);
+                            }
+                            notifyDataSetChanged();
+                        }
+                     }
+
+                    @Override
+                    public void onFailure(Call<com.example.musicapp.Model.Playlist> call, Throwable t) {
+                        System.out.println(t.getMessage());
+                    }
+                });
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

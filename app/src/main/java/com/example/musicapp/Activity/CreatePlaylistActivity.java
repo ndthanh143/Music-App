@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapp.DTO.PlaylistDTO;
 import com.example.musicapp.Model.Playlist;
+import com.example.musicapp.Model.User;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_API.ApiService;
+import com.example.musicapp.Service_Local.SharedPrefManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +52,8 @@ public class CreatePlaylistActivity extends AppCompatActivity {
     }
 
     private void CallApiCreatePlaylist(PlaylistDTO playlistDTO) {
-        ApiService.apiService.createPlaylist(playlistDTO).enqueue(new Callback<Playlist>() {
+        String userId = SharedPrefManager.getInstance(this).getUser().getId();
+        ApiService.apiService.createPlaylist(playlistDTO, userId).enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
                 String playlistId = response.body().getId();

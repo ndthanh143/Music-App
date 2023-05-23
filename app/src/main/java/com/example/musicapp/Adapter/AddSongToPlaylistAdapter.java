@@ -88,11 +88,12 @@ public class AddSongToPlaylistAdapter extends BaseAdapter {
         ApiService.apiService.addSongToPlaylist(playlistId, song).enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                Toast.makeText(context, "Added song to playlist!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Added song to playlist!", Toast.LENGTH_SHORT).show();
+
             }
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                Toast.makeText(context, "Call API Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Bài hát đã có trong hệ thống", Toast.LENGTH_SHORT).show();
             }
         });
     }
