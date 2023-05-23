@@ -1,9 +1,11 @@
 package com.example.musicapp.Service_API;
 
+import com.example.musicapp.DTO.CommentDTO;
 import com.example.musicapp.DTO.PlaylistDTO;
 import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.DTO.UserSignupDTO;
+import com.example.musicapp.Model.Comment;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.Model.Song;
@@ -36,7 +38,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.2:8080/api/";
+    String BASE_URL = "http://192.168.1.7:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -92,4 +94,13 @@ public interface ApiService {
 
     @PUT("user/update-password/{id}")
     Call<User> changePassword(@Path("id") String userId, @Query("oldPassword") String oldPass, @Query("newPassword") String newPass);
+
+    //Comment
+    @GET("comment/{songId}/all")
+    Call<List<Comment>> listCommentOfSong(@Path("songId") String songId);
+    @POST("comment")
+    Call<Comment> CreateComment(@Body CommentDTO commentDTO);
+    @PUT("comment/{id}")
+    Call<Comment> UpdateComment(@Path("id") String playlistId, @Query("comment") String comment);
+
 }
