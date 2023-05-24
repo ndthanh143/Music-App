@@ -1,9 +1,11 @@
 package com.example.musicapp.Service_API;
 
+import com.example.musicapp.DTO.CommentDTO;
 import com.example.musicapp.DTO.PlaylistDTO;
 import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.DTO.UserDTO;
 import com.example.musicapp.DTO.UserSignupDTO;
+import com.example.musicapp.Model.Comment;
 import com.example.musicapp.Model.MusicType;
 import com.example.musicapp.Model.Playlist;
 import com.example.musicapp.Model.Song;
@@ -12,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.net.HttpURLConnection;
+import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +40,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.82.254:8080/api/";
+    String BASE_URL = "http://192.168.1.7:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -99,4 +102,15 @@ public interface ApiService {
 
     @PUT("user/update-password/{id}")
     Call<User> changePassword(@Path("id") String userId, @Query("oldPassword") String oldPass, @Query("newPassword") String newPass);
+
+    //Commment
+    @GET("comment/{songId}/all")
+    Call<List<Comment>> listCommentOfSong(@Path("songId") String songId);
+    @POST("comment")
+    Call<Comment> CreateComment(@Body CommentDTO commentDTO);
+    @PUT("comment/{id}")
+    Call<Comment> updateComment(@Path("id") String id, @Query("comment") String comment);
+    @DELETE("comment/{id}")
+    Call<Comment> deleteComment(@Path("id") String id);
+
 }

@@ -8,8 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
         android:elevation="8dp"
         android:padding="5dp"
         app:cardCornerRadius="5dp"
@@ -24,50 +23,64 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/imageViewBaihat"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/ivUser"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="3dp"
                 android:layout_marginBottom="3dp"
-                android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/textviewTenbaihat"
+                android:scaleType="fitXY"
+                android:background="@drawable/custom_image_circle"
+                android:src="@drawable/baseline_person_40" />
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/layout12"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/imageViewBaihat"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/ivUser">
+            <TextView
+                android:id="@+id/tvTenUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Tên bài hát"
+                android:text="Tên user"
                 android:textColor="#363636"
-                android:textSize="18dp" />
-
+                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tvThoigian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Thời gian"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="#6A6868"
+                    android:textSize="10sp" />
+            </LinearLayout>
             <TextView
-                android:id="@+id/textviewTencasi"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvComment"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textviewTenbaihat"
+                android:layout_below="@+id/layout12"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="7dp"
-                android:layout_toRightOf="@+id/imageViewBaihat"
+                android:layout_toRightOf="@+id/ivUser"
                 android:ellipsize="end"
-                android:singleLine="true"
-                android:text="Tên Ca sĩ"
+                android:text="Bình luận"
                 android:textColor="#363636"
-                android:textSize="16dp" />
+                android:textSize="15sp"/>
 
-            <ImageView
-                android:id="@+id/btnDeletePlaylist"
+            <ImageButton
+                android:id="@+id/btnOptionCmt"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/menu1"
+                android:background="@drawable/menu1"
                 android:visibility="visible" />
         </RelativeLayout>
 

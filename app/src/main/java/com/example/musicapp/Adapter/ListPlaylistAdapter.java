@@ -30,6 +30,7 @@ import retrofit2.Response;
 public class ListPlaylistAdapter extends RecyclerView.Adapter<ListPlaylistAdapter.MyViewHolder> {
     Context context;
     List<Playlist> array;
+    private ReloadListener reloadListener;
 
     public ListPlaylistAdapter(Context context, List<Playlist> array) {
         this.context = context;
@@ -105,4 +106,14 @@ public class ListPlaylistAdapter extends RecyclerView.Adapter<ListPlaylistAdapte
     public int getItemCount() {
         return array == null ? 0 : array.size();
     }
+    public interface ReloadListener {
+        void onReload();
+    }
+    public void setReloadListener(ReloadListener reloadListener) {
+        this.reloadListener = reloadListener;
+        if (reloadListener != null) {
+            reloadListener.onReload();
+        }
+    }
+
 }
