@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -82,6 +83,13 @@ public class PlayMusicActivity extends AppCompatActivity {
     private List<Comment> mListComment=new ArrayList<>();
     private LinearLayout layoutNoComment;
     private LinearLayout layoutHasComment;
+    CommentSongAdapter.CommentItemClickListener commentItemClickListener;
+    private ImageButton sendCmt;
+    private EditText txtCmt;
+    private boolean isEditing = false;
+    String newComment= null,commentId1;
+    Dialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -141,15 +149,38 @@ public class PlayMusicActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        final Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_layout);
         layoutNoComment = dialog.findViewById(R.id.layoutNoComment);
         layoutHasComment = dialog.findViewById(R.id.layoutHasComment);
         rcListComment = dialog.findViewById(R.id.rcComment);
-        ImageButton sendCmt= dialog.findViewById(R.id.sendCmt);
-        EditText txtCmt=dialog.findViewById(R.id.txtCmt);
+        sendCmt= dialog.findViewById(R.id.sendCmt);
+        txtCmt=dialog.findViewById(R.id.txtCmt);
+        commentItemClickListener = new CommentSongAdapter.CommentItemClickListener() {
+            @Override
+            public void onEditCommentClick(String commentId,String oldComment) {
+                // Xử lý sự kiện khi nhấn vào "Sửa bình luận"
+                // Truyền dữ liệu commentId vào dialog
+                txtCmt.setText(oldComment);
+                commentId1=commentId;
+                isEditing=true;
+            }
 
+            @Override
+            public void onDeleteCommentClick(String commentId) {
+                callApiDeleteComment(commentId);
+                callAPIgetAllCmt();
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
+            }
+        };
+
+        //
+//        commentItemClickListener.onDeleteCommentClick("1234");
         sendCmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,10 +189,23 @@ public class PlayMusicActivity extends AppCompatActivity {
                 commentDTO.setComment(Cmt);
                 commentDTO.setUser(SharedPrefManager.getInstance(dialog.getContext()).getUser());
                 commentDTO.setSong(song);
-                callAPIcreateCmt(commentDTO);
+
+                if (isEditing) {
+                    callAPIUpdateComment(commentId1, txtCmt.getText().toString());
+                    callAPIgetAllCmt();
+                    dialog.cancel();
+                    dialog.show();
+                    isEditing=false;
+                } else {
+                    callAPIcreateCmt(commentDTO);
+                    callAPIgetAllCmt();
+                    dialog.show();
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                    dialog.getWindow().setGravity(Gravity.BOTTOM);
+                }
                 txtCmt.setText("");
-                callAPIgetAllCmt();
-                dialog.show();
             }
         });
         callAPIgetAllCmt();
@@ -170,6 +214,23 @@ public class PlayMusicActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void callAPIUpdateComment(String commentId, String newComment) {
+        ApiService.apiService.updateComment(commentId,newComment).enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    Toast.makeText(PlayMusicActivity.this,"Đã cập nhật", Toast.LENGTH_SHORT).show();}
+                else {Toast.makeText(PlayMusicActivity.this,"Không cập nhật được 1", Toast.LENGTH_SHORT).show();
+                    System.out.println("id: "+commentId+" comment: "+newComment);}
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                Toast.makeText(PlayMusicActivity.this,"Không cập nhật được 2", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void callAPIgetAllCmt() {
@@ -187,7 +248,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                     }else{
                         layoutNoComment.setVisibility(View.GONE);
                         layoutHasComment.setVisibility(View.VISIBLE);
-                        commentSongAdapter = new CommentSongAdapter(PlayMusicActivity.this, mListComment);
+                        commentSongAdapter = new CommentSongAdapter(PlayMusicActivity.this, mListComment,commentItemClickListener);
                         rcListComment.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
                         rcListComment.setLayoutManager(layoutManager);
@@ -224,6 +285,34 @@ public class PlayMusicActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Comment> call, Throwable t) {
+
+            }
+        });
+    }
+    private void callApiDeleteComment(String id) {
+        ApiService.apiService.deleteComment(id).enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Comment deletedComment = response.body();
+                    System.out.println("xoa duoc comment  "+id);
+                    Toast.makeText(PlayMusicActivity.this, "Đã xoá bình luận", Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < mListComment.size(); i++) {
+                        if (mListComment.get(i).getId().equals(deletedComment.getId())) {
+                            mListComment.remove(i);
+                            break;
+                        }
+                    }
+                    commentSongAdapter.notifyDataSetChanged();
+                } else {
+                    System.out.println("Khong xoa duoc comment1  "+id);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                System.out.println(id);
+                Toast.makeText(PlayMusicActivity.this, "Không xoa duoc comment", Toast.LENGTH_SHORT).show();
 
             }
         });
