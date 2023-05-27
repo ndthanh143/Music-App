@@ -14,16 +14,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,10 +31,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.musicapp.Adapter.BaiHatAdapter;
 import com.example.musicapp.Adapter.CommentSongAdapter;
-import com.example.musicapp.Adapter.PlaylistSongAdapter;
 import com.example.musicapp.Adapter.ViewPagerPlayListNhac;
 import com.example.musicapp.DTO.CommentDTO;
-import com.example.musicapp.DTO.SongDTO;
 import com.example.musicapp.Fragment.FragmentDiaNhac;
 import com.example.musicapp.Fragment.FragmentSongInformation;
 import com.example.musicapp.Fragment.FragmentLyricsNhac;
@@ -88,7 +84,8 @@ public class PlayMusicActivity extends AppCompatActivity {
     private EditText txtCmt;
     private boolean isEditing = false;
     String newComment= null,commentId1;
-    Dialog dialog;
+    Dialog dialog,dialogNotify;
+    String commentOfDialoafNotify;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -147,11 +144,41 @@ public class PlayMusicActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void showDialogNotify(String commentId) {
+        dialogNotify = new Dialog(this);
+        dialogNotify.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogNotify.setContentView(R.layout.center_notify_dialog);
+        Button btnYes=dialogNotify.findViewById(R.id.btnYes);
+        Button btnNo=dialogNotify.findViewById(R.id.btnNo);
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callApiDeleteComment(commentId);
+                dialogNotify.cancel();
+                callAPIgetAllCmt();
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
+            }
+        });
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogNotify.cancel();
+            }
+        });
+        dialogNotify.show();
+        dialogNotify.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogNotify.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogNotify.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialogNotify.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+    }
     private void showDialog() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottom_sheet_layout);
+        dialog.setContentView(R.layout.bottom_comment_dialog);
         layoutNoComment = dialog.findViewById(R.id.layoutNoComment);
         layoutHasComment = dialog.findViewById(R.id.layoutHasComment);
         rcListComment = dialog.findViewById(R.id.rcComment);
@@ -169,18 +196,11 @@ public class PlayMusicActivity extends AppCompatActivity {
 
             @Override
             public void onDeleteCommentClick(String commentId) {
-                callApiDeleteComment(commentId);
-                callAPIgetAllCmt();
-                dialog.show();
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-                dialog.getWindow().setGravity(Gravity.BOTTOM);
+                commentOfDialoafNotify=commentId;
+                showDialogNotify(commentOfDialoafNotify);
             }
         };
 
-        //
-//        commentItemClickListener.onDeleteCommentClick("1234");
         sendCmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

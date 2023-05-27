@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -49,7 +50,7 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
     public TextView tvThoigian;
     private boolean isBtnMenuClicked = false;
 
-    private int isAcount=1;
+    private int isAcount=0;
 
 
     public CommentSongAdapter(Context context, List<Comment> array ,CommentItemClickListener listener) {
@@ -92,6 +93,18 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
         Comment commentItem = array.get(position);
         holder.name.setText(commentItem.getUser().getName());
         holder.comment.setText(commentItem.getComment());
+        if(commentItem.getUser().getAvatar()!=null){
+        Glide.with(context)
+                .load(commentItem.getUser().getAvatar())
+                .circleCrop()
+                .into(holder.image);
+        }
+        else {
+            Glide.with(context)
+                    .load(R.drawable.baseline_person_40)
+                    .circleCrop()
+                    .into(holder.image);
+        }
         commentCreatedAt = commentItem.getCreatedAt();
         commentUpdatedAt =commentItem.getUpdatedAt();
         currentDate = new Date();
@@ -99,17 +112,13 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
             tinhThoiGian(commentCreatedAt,currentDate);
         }
         else {tinhThoiGian(commentUpdatedAt,currentDate);}
-        String id1=commentItem.getUser().getId();
-        if(commentItem.getUser().getId() == SharedPrefManager.getInstance(context).getUser().getId()){
-            isAcount=1;
-            System.out.println("isAcount1"+isAcount);
-        }
-        else{ System.out.println("isAcount2"+isAcount);}
+
         holder.btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("user1: "+id1+" user2: "+SharedPrefManager.getInstance(context).getUser().getId()+"isAccount3 "+isAcount);
-                if(isAcount==1){PopupMenu popupMenu = new PopupMenu(context, view);
+                if(Objects.equals(commentItem.getUser().getId(), SharedPrefManager.getInstance(context).getUser().getId()))
+                {
+                    PopupMenu popupMenu = new PopupMenu(context, view);
                     MenuInflater inflater = popupMenu.getMenuInflater();
                     inflater.inflate(R.menu.menu_comment, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -135,9 +144,9 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
                         }
                     });
                     popupMenu.show();
-//                    isAcount=false;
+                    isAcount=0;
                 } else {
-                    Toast.makeText(context, "Không có quyền truy cập", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Không có quyền truy cập", Toast.LENGTH_SHORT).show();
                 }
 
             }

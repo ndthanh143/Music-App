@@ -2,6 +2,7 @@ package com.example.musicapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,12 +27,15 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtPassword;
     Button btnLogin;
     TextView tvGoToSignUp;
+    private ProgressDialog mProgessDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
         anhXa();
+        mProgessDialog = new ProgressDialog(LoginActivity.this);
+        mProgessDialog.setMessage("Please wait login ...");
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivities(new Intent[]{new Intent(this, MainActivity.class)});
@@ -52,14 +56,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+        mProgessDialog.show();
         final String email = edtEmail.getText().toString();
         final String password = edtPassword.getText().toString();
         if (TextUtils.isEmpty(email)) {
+            mProgessDialog.dismiss();
             edtEmail.setError("Please enter your username");
             edtPassword.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(password)) {
+            mProgessDialog.dismiss();
             edtPassword.setError("Please enter your password");
             edtPassword.requestFocus();
             return;
@@ -68,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
+                    mProgessDialog.dismiss();
                     try {
                         User user = response.body();
                         if (user != null) {
@@ -100,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                mProgessDialog.dismiss();
             }
         });
     }

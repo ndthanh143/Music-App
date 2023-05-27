@@ -18,7 +18,9 @@ import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +32,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 public interface ApiService {
@@ -40,7 +43,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.7:8080/api/";
+    String BASE_URL = "http://192.168.1.104:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -103,6 +106,9 @@ public interface ApiService {
     @PUT("user/update-password/{id}")
     Call<User> changePassword(@Path("id") String userId, @Query("oldPassword") String oldPass, @Query("newPassword") String newPass);
 
+    @Multipart
+    @PUT("user/{id}/upload-avatar")
+    Call<User> updateAvatar(@Path("id") String id, @Part MultipartBody.Part avatar);
     //Commment
     @GET("comment/{songId}/all")
     Call<List<Comment>> listCommentOfSong(@Path("songId") String songId);
