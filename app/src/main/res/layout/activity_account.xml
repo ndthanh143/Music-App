@@ -47,16 +47,18 @@
     <LinearLayout
         android:id="@+id/imfor"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="30dp"
-        android:layout_below="@+id/layoutsearch">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        android:layout_below="@+id/layoutsearch"
+        android:paddingBottom="5dp">
+        <ImageButton
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/user"
-
-            android:layout_gravity="center"/>
+            android:id="@+id/avatarUser"
+            android:layout_gravity="center"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tvUsernameAccount"

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.example.musicapp.Activity.MainActivity;
 import com.example.musicapp.DTO.UserDTO;
+import com.example.musicapp.Model.User;
 
 public class SharedPrefManager {  private static final String SHARED_PREF_NAME = "volleyregisterlogin";
     private static final String KEY_ID = "keyid";
@@ -30,6 +31,18 @@ public class SharedPrefManager {  private static final String SHARED_PREF_NAME =
     public void userLogin(UserDTO user) {
         SharedPreferences sharedPreferences = ctx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_ID, user.getId());
+        editor.putString(KEY_USERNAME, user.getName());
+        editor.putString(KEY_EMAIL, user.getEmail());
+        editor.putString(KEY_PHONE, user.getPhone());
+        editor.putString(KEY_AVATAR, user.getAvatar());
+        editor.apply();
+    }
+
+    public void update(User user) {
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
         editor.putString(KEY_ID, user.getId());
         editor.putString(KEY_USERNAME, user.getName());
         editor.putString(KEY_EMAIL, user.getEmail());

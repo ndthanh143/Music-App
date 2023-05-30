@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.musicapp.R;
 import com.example.musicapp.Service_Local.SharedPrefManager;
 
@@ -19,7 +20,8 @@ public class AccountActivity extends AppCompatActivity {
     ImageButton ivback,ivSetting;
     TextView tvInfo,tvChagePass,tvDangxuat,tvUsernameAccount;
     ImageView ivAddMore,ivFavourite,ivExplore,ivAccount,ivHome;
-
+    ImageButton avatarUser;
+    boolean isDoubleClicked=false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +99,15 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(AccountActivity.this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
             }
         });
+        avatarUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, UploadImageActivity.class));
+            }
+        });
+        Glide.with(this).load(SharedPrefManager.getInstance(this).getUser().getAvatar())
+                .circleCrop()
+                .into(avatarUser);
     }
 
     private void anhXa() {
@@ -112,5 +123,6 @@ public class AccountActivity extends AppCompatActivity {
         ivHome = findViewById(R.id.ivHome);
         tvUsernameAccount = findViewById(R.id.tvUsernameAccount);
         tvDangxuat = findViewById(R.id.tvDangxuat);
+        avatarUser = findViewById(R.id.avatarUser);
     }
 }
