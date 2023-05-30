@@ -79,17 +79,16 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         User user = response.body();
                         if (user != null) {
-                            Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show(); //getting the user from the response
                             UserDTO dto = new UserDTO();
                             dto.setEmail(user.getEmail());
                             dto.setId(user.getId());
                             dto.setName(user.getName());
                             dto.setPhone(user.getPhone());
                             dto.setAvatar(user.getAvatar());
-                            System.out.println("Dang nhap vao duoc");
+
 
                             SharedPrefManager.getInstance(getApplicationContext()).userLogin(dto);
-                            finish();
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
@@ -101,13 +100,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
-                    System.out.println("Khong Dang nhap vao duoc");
+                    mProgessDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Tài khoản email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Tài khoản email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                 mProgessDialog.dismiss();
             }
         });

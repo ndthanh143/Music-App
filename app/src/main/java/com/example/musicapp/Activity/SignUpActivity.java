@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(SignUpActivity.this, "Lỗi phát sinh", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Tài khoản email đã tồn tại trên hệ thống, vui lòng chọn tài khoản khác", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -93,16 +93,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void CallApiVerifyOtp(String email, String otp) {
-        ApiService.apiService.verifyOtp(email, otp).enqueue(new Callback<String>() {
+        ApiService.apiService.verifyOtp(email, otp).enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 Toast.makeText(SignUpActivity.this, "Đăng ký thành công, vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(i);
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
                 System.out.println(t.getMessage());
                 Toast.makeText(SignUpActivity.this, "OTP không hợp lệ", Toast.LENGTH_SHORT).show();
             }
