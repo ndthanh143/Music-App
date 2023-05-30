@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        user = SharedPrefManager.getInstance(this).getUser();
         anhXa();
         xuLyBtn();
         mListMusicTypes = new ArrayList<>();
-        user = SharedPrefManager.getInstance(this).getUser();
         CallApiMusicType();
         RecyclerViewListSong();
     }

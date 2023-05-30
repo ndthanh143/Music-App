@@ -43,7 +43,7 @@ public interface ApiService {
             .readTimeout(100, TimeUnit.SECONDS)
             .build();
 
-    String BASE_URL = "http://192.168.1.104:8080/api/";
+    String BASE_URL = "http://192.168.204.100:8080/api/";
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -94,7 +94,7 @@ public interface ApiService {
     @POST("auth/signup")
     Call<User> signUp(@Body UserSignupDTO userSignupDTO);
     @POST("auth/{email}/verify")
-    Call<String> verifyOtp(@Path("email") String email, @Query("otp") String otp);
+    Call<Boolean> verifyOtp(@Path("email") String email, @Query("otp") String otp);
 
     @POST("auth/login")
     Call<User> login(@Query("email") String email, @Query("password") String password);

@@ -140,7 +140,11 @@ public class PlayMusicActivity extends AppCompatActivity {
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                if(SharedPrefManager.getInstance(PlayMusicActivity.this).getUser().getId() == null) {
+                    Toast.makeText(PlayMusicActivity.this, "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog();
+                }
             }
         });
     }

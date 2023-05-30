@@ -55,9 +55,13 @@ public class ChangePassActivity extends AppCompatActivity {
         ApiService.apiService.changePassword(userId, oldPass, newPass).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(ChangePassActivity.this, "Password changed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ChangePassActivity.this, AccountActivity.class);
-                startActivity(intent);
+                if(response.isSuccessful()) {
+                    Toast.makeText(ChangePassActivity.this, "Password changed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ChangePassActivity.this, AccountActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ChangePassActivity.this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

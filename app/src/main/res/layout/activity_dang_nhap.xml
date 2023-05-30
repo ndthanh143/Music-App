@@ -48,7 +48,7 @@
             android:layout_width="315dp"
             android:layout_height="53dp"
             android:background="@drawable/edt_all"
-            android:hint="Username"
+            android:hint="Email"
             android:paddingLeft="60dp"
             android:textColor="#FF00FF"
             android:textColorHint="#FF00FF"
